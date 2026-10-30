@@ -38,11 +38,11 @@
 </head>
 <body class="bg-darkBg min-h-screen text-slate-200 pb-24">
 
-  <!-- 1. LOADING SCREEN -->
+  <!-- 1. LOADING SCREEN (1 - 100% PAS) -->
   <div id="loadingScreen" class="fixed inset-0 bg-darkBg z-50 flex flex-col items-center justify-center transition-opacity duration-500">
     <div class="relative w-16 h-16 border-4 border-slate-700 border-t-accentGold rounded-full animate-spin mb-6"></div>
-    <p class="text-sm tracking-wider font-semibold text-slate-300">MENYINKRONKAN SALDO...</p>
-    <p id="loadingProgress" class="text-xs text-slate-500 mt-2">MENGHUBUNGKAN KE DATABASE... 0%</p>
+    <p class="text-sm tracking-wider font-semibold text-slate-300">MEMUAT APLIKASI</p>
+    <p id="loadingProgress" class="text-xs text-slate-500 mt-2">MENGAMBIL DATA... 0%</p>
   </div>
 
   <!-- MAIN APP CONTAINER -->
@@ -67,8 +67,6 @@
 
     <!-- TAB 1: BELI KEY -->
     <div id="tabBeliKey" class="tab-content space-y-4">
-      
-      <!-- HERO BANNER -->
       <div class="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-4 flex items-center space-x-3">
         <i class="fa-solid fa-key text-accentGold text-2xl"></i>
         <div>
@@ -77,7 +75,6 @@
         </div>
       </div>
 
-      <!-- KATEGORI GAME -->
       <div>
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Pilih Game</p>
         <div class="grid grid-cols-1 gap-2">
@@ -94,7 +91,6 @@
         </div>
       </div>
 
-      <!-- PRODUK PHANTOM -->
       <div id="sectionProduct" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Pilih Produk</p>
         <div onclick="selectProduct()" id="cardProductPhantom" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between cursor-pointer transition">
@@ -109,7 +105,6 @@
         </div>
       </div>
 
-      <!-- PILIHAN DURASI -->
       <div id="sectionDuration" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">3. Pilih Durasi Paket</p>
         <div class="space-y-2">
@@ -180,12 +175,10 @@
           </label>
         </div>
 
-        <!-- TOMBOL BELI -->
         <button onclick="buyProduct()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm transition tracking-wider shadow-lg shadow-amber-500/10 mt-4">
           BELI SEKARANG
         </button>
       </div>
-
     </div>
 
     <!-- TAB 2: PURCHASE ORDER (RIWAYAT PEMBELIAN) -->
@@ -207,14 +200,14 @@
       </div>
     </div>
 
-    <!-- TAB 3: TOP UP SALDO & LEADERBOARD -->
+    <!-- TAB 3: TOP UP SALDO (KHUSUS ADMIN) -->
     <div id="tabTopUp" class="tab-content hidden space-y-4">
-      <div class="bg-cardBg border border-borderBg rounded-2xl p-4 text-center">
-        <i class="fa-solid fa-wallet text-amber-500 text-3xl mb-2"></i>
+      <div class="bg-cardBg border border-borderBg rounded-2xl p-4 text-center space-y-3">
+        <i class="fa-solid fa-wallet text-amber-500 text-3xl mb-1"></i>
         <h3 class="text-sm font-bold text-white">TOP UP SALDO MANUAL</h3>
-        <p class="text-xs text-slate-400 mt-1">Silakan hubungi Admin untuk melakukan deposit saldo via QRIS, E-Wallet, atau Transfer Bank.</p>
+        <p class="text-xs text-slate-400">Silakan hubungi Admin untuk melakukan deposit saldo via QRIS, E-Wallet, atau Transfer Bank.</p>
         
-        <div class="mt-4 bg-darkBg p-3 rounded-xl border border-borderBg text-left space-y-2">
+        <div class="bg-darkBg p-3 rounded-xl border border-borderBg text-left space-y-2">
           <p class="text-[11px] text-slate-400">Sebutkan ID Telegram Anda saat deposit:</p>
           <div class="bg-cardBg p-2 rounded border border-slate-700 flex justify-between items-center">
             <span id="depositUserId" class="text-xs font-mono font-bold text-amber-400">ID: -</span>
@@ -222,8 +215,7 @@
           </div>
         </div>
 
-        <!-- TOMBOL HUBUNGI ADMIN (TELEGRAM & WHATSAPP) -->
-        <div class="mt-4 space-y-2">
+        <div class="space-y-2 pt-2">
           <a href="https://t.me/Niellstorez" target="_blank" class="block w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-xl text-xs transition text-center shadow-lg">
             <i class="fa-brands fa-telegram mr-1.5 text-base"></i> HUBUNGI VIA TELEGRAM
           </a>
@@ -232,95 +224,26 @@
           </a>
         </div>
       </div>
+    </div>
 
-      <!-- SECTION LEADERBOARD -->
-      <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3 mt-4">
+    <!-- TAB 4: LEADERBOARD / RANKING -->
+    <div id="tabLeaderboard" class="tab-content hidden space-y-4">
+      <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
         <div class="flex items-center space-x-2">
           <i class="fa-solid fa-coins text-accentGold text-lg"></i>
           <div>
             <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">LEADERBOARD</h3>
-            <p class="text-[10px] text-slate-400">Top depositor / pembeli terbanyak</p>
+            <p class="text-[10px] text-slate-400">Top depositor / saldo tertinggi (Real-Time)</p>
           </div>
         </div>
 
-        <!-- TAB FILTER LEADERBOARD -->
-        <div class="grid grid-cols-3 gap-1.5 bg-darkBg p-1 rounded-xl border border-borderBg text-center">
-          <button onclick="switchLeaderboard('month', this)" class="leader-tab py-1.5 rounded-lg text-[11px] font-bold bg-cardBg text-amber-400 border border-amber-500/40">BULAN INI</button>
-          <button onclick="switchLeaderboard('week', this)" class="leader-tab py-1.5 rounded-lg text-[11px] font-bold text-slate-400">MINGGU INI</button>
-          <button onclick="switchLeaderboard('all', this)" class="leader-tab py-1.5 rounded-lg text-[11px] font-bold text-slate-400">SEMUA</button>
-        </div>
-
-        <!-- LIST RANKING -->
-        <div class="space-y-2 pt-1">
-          <!-- Rank 1 -->
-          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-7 h-7 rounded-full bg-amber-500 text-black font-extrabold flex items-center justify-center text-xs">1</div>
-              <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-xs border border-amber-500/30">NS</div>
-              <div>
-                <p class="text-xs font-bold text-white">Niellstorez</p>
-                <p class="text-[10px] text-slate-400">@Niellstorez · ID: 8251671543</p>
-              </div>
-            </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 1.200.000</span>
-          </div>
-
-          <!-- Rank 2 -->
-          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-7 h-7 rounded-full bg-slate-700 text-slate-200 font-extrabold flex items-center justify-center text-xs">2</div>
-              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">HO</div>
-              <div>
-                <p class="text-xs font-bold text-white">h_oney</p>
-                <p class="text-[10px] text-slate-400">ID: 8766228147</p>
-              </div>
-            </div>
-            <span class="text-xs font-extrabold text-slate-300">Rp 50.000</span>
-          </div>
-
-          <!-- Rank 3 -->
-          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-7 h-7 rounded-full bg-amber-700/60 text-amber-200 font-extrabold flex items-center justify-center text-xs">3</div>
-              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">FX</div>
-              <div>
-                <p class="text-xs font-bold text-white">Fikri Mod</p>
-                <p class="text-[10px] text-slate-400">ID: 9182736450</p>
-              </div>
-            </div>
-            <span class="text-xs font-extrabold text-slate-300">Rp 35.000</span>
-          </div>
-
-          <!-- Rank 4 -->
-          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-extrabold flex items-center justify-center text-xs">4</div>
-              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">RD</div>
-              <div>
-                <p class="text-xs font-bold text-white">Randi Store</p>
-                <p class="text-[10px] text-slate-400">ID: 5544332211</p>
-              </div>
-            </div>
-            <span class="text-xs font-extrabold text-slate-400">Rp 20.000</span>
-          </div>
-
-          <!-- Rank 5 -->
-          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-extrabold flex items-center justify-center text-xs">5</div>
-              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">AZ</div>
-              <div>
-                <p class="text-xs font-bold text-white">Asep ID</p>
-                <p class="text-[10px] text-slate-400">ID: 6677889900</p>
-              </div>
-            </div>
-            <span class="text-xs font-extrabold text-slate-400">Rp 10.000</span>
-          </div>
+        <div id="leaderboardContainer" class="space-y-2 pt-1">
+          <p class="text-xs text-slate-500 text-center py-4">Memuat data leaderboard...</p>
         </div>
       </div>
     </div>
 
-    <!-- TAB 4: ACCOUNT OVERVIEW & PROFIL -->
+    <!-- TAB 5: ACCOUNT OVERVIEW & PROFIL -->
     <div id="tabProfile" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
         <h3 class="text-xs font-bold text-slate-400 uppercase">Account Overview</h3>
@@ -349,23 +272,27 @@
   <div class="fixed bottom-0 left-0 right-0 bg-cardBg border-t border-borderBg max-w-md mx-auto flex justify-around py-2.5 z-40">
     <button onclick="switchTab('tabBeliKey', this)" class="nav-btn flex flex-col items-center text-amber-500">
       <i class="fa-solid fa-key text-base"></i>
-      <span class="text-[10px] font-bold mt-1">BELI KEY</span>
+      <span class="text-[9px] font-bold mt-1">BELI KEY</span>
     </button>
     <button onclick="switchTab('tabOrders', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-receipt text-base"></i>
-      <span class="text-[10px] font-bold mt-1">ORDER</span>
+      <span class="text-[9px] font-bold mt-1">ORDER</span>
     </button>
     <button onclick="switchTab('tabTopUp', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-wallet text-base"></i>
-      <span class="text-[10px] font-bold mt-1">TOP UP</span>
+      <span class="text-[9px] font-bold mt-1">TOP UP</span>
+    </button>
+    <button onclick="switchTab('tabLeaderboard', this)" class="nav-btn flex flex-col items-center text-slate-400">
+      <i class="fa-solid fa-trophy text-base"></i>
+      <span class="text-[9px] font-bold mt-1">RANKING</span>
     </button>
     <button onclick="switchTab('tabProfile', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-user text-base"></i>
-      <span class="text-[10px] font-bold mt-1">PROFIL</span>
+      <span class="text-[9px] font-bold mt-1">PROFIL</span>
     </button>
   </div>
 
-  <!-- JAVASCRIPT LOGIC & API GOOGLE SHEETS -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxokUwtbcp60wD1QOn75hpoMCWo_qmgyHelW20z5u_c1hbsg149u-Gh-5NA5_nThAKzjQ/exec";
 
@@ -376,9 +303,8 @@
       tg.expand();
     }
 
-    // LOAD DATA & AMBIL SALDO DARI GOOGLE SHEETS
     window.addEventListener('DOMContentLoaded', async () => {
-      let progress = 0;
+      let currentPercent = 0;
       const progressElem = document.getElementById('loadingProgress');
       
       let telegramId = "8251671543";
@@ -399,39 +325,78 @@
       document.getElementById('depositUserId').innerText = `ID: ${telegramId}`;
       document.getElementById('userAvatar').src = userPhoto;
 
-      const interval = setInterval(async () => {
-        progress += 30;
-        progressElem.innerText = `MENYINKRONKAN SALDO... ${progress}%`;
-        
-        if (progress >= 90) {
-          clearInterval(interval);
-          try {
-            const response = await fetch(`${SCRIPT_URL}?action=getBalance&id=${telegramId}`);
-            const result = await response.json();
-            
-            let formattedSaldo = "Rp 0";
-            if (result.status === "success") {
-              formattedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
-            }
-            
-            document.getElementById('userBalance').innerText = formattedSaldo;
-            document.getElementById('profBalance').innerText = formattedSaldo;
-          } catch (error) {
-            console.error("Gagal mengambil saldo:", error);
-            document.getElementById('userBalance').innerText = "Rp 1.200.000";
-            document.getElementById('profBalance').innerText = "Rp 1.200.000";
+      // Fetch data di latar belakang
+      let fetchedBalance = "Rp 0";
+      let leaderboardHtml = `<p class="text-xs text-slate-500 text-center py-4">Belum ada data leaderboard.</p>`;
+
+      const fetchPromise = (async () => {
+        try {
+          const resBalance = await fetch(`${SCRIPT_URL}?action=getBalance&id=${telegramId}`);
+          const dataBalance = await resBalance.json();
+          if (dataBalance.status === "success") {
+            fetchedBalance = "Rp " + Number(dataBalance.saldo).toLocaleString('id-ID');
           }
 
-          document.getElementById('loadingScreen').classList.add('opacity-0');
-          setTimeout(() => {
-            document.getElementById('loadingScreen').style.display = 'none';
-            document.getElementById('appContainer').classList.remove('hidden');
-          }, 400);
+          const resLeader = await fetch(`${SCRIPT_URL}?action=getLeaderboard`);
+          const dataLeader = await resLeader.json();
+          
+          if (dataLeader.status === "success" && dataLeader.leaderboard.length > 0) {
+            let htmlContent = "";
+            dataLeader.leaderboard.forEach((item, index) => {
+              let rank = index + 1;
+              let badgeColor = rank === 1 ? "bg-amber-500 text-black" : (rank === 2 ? "bg-slate-700 text-slate-200" : (rank === 3 ? "bg-amber-700/60 text-amber-200" : "bg-slate-800 text-slate-400"));
+              let initials = item.name ? item.name.substring(0, 2).toUpperCase() : "US";
+              let formattedNominal = "Rp " + Number(item.saldo).toLocaleString('id-ID');
+
+              htmlContent += `
+                <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-7 h-7 rounded-full ${badgeColor} font-extrabold flex items-center justify-center text-xs">${rank}</div>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 text-amber-400 font-bold flex items-center justify-center text-xs border border-slate-700">${initials}</div>
+                    <div>
+                      <p class="text-xs font-bold text-white">${item.name}</p>
+                      <p class="text-[10px] text-slate-400">ID: ${item.id}</p>
+                    </div>
+                  </div>
+                  <span class="text-xs font-extrabold text-accentGold">${formattedNominal}</span>
+                </div>
+              `;
+            });
+            leaderboardHtml = htmlContent;
+          }
+        } catch (error) {
+          console.error("Gagal sinkronisasi data:", error);
+          fetchedBalance = "Rp 1.200.000";
         }
-      }, 150);
+      })();
+
+      // Animasi loading 1% sampai 100% yang natural (tidak lambat, tidak cepat)
+      const loadingInterval = setInterval(() => {
+        currentPercent += 5;
+        if (currentPercent > 100) currentPercent = 100;
+        
+        progressElem.innerText = `MENGAMBIL DATA... ${currentPercent}%`;
+
+        if (currentPercent === 100) {
+          clearInterval(loadingInterval);
+          
+          // Masukkan data hasil fetch ke elemen UI
+          document.getElementById('userBalance').innerText = fetchedBalance;
+          document.getElementById('profBalance').innerText = fetchedBalance;
+          document.getElementById('leaderboardContainer').innerHTML = leaderboardHtml;
+
+          // Tutup loading screen
+          setTimeout(() => {
+            document.getElementById('loadingScreen').classList.add('opacity-0');
+            setTimeout(() => {
+              document.getElementById('loadingScreen').style.display = 'none';
+              document.getElementById('appContainer').classList.remove('hidden');
+            }, 400);
+          }, 200);
+        }
+      }, 70); // Kecepatan interval pas (total sekitar 1.4 detik)
     });
 
-    // NAVIGASI TAB MENU
     function switchTab(tabId, btnElem) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
       document.getElementById(tabId).classList.remove('hidden');
@@ -444,15 +409,6 @@
       btnElem.classList.add('text-amber-500');
     }
 
-    // FILTER LEADERBOARD TAB
-    function switchLeaderboard(type, btnElem) {
-      document.querySelectorAll('.leader-tab').forEach(btn => {
-        btn.className = "leader-tab py-1.5 rounded-lg text-[11px] font-bold text-slate-400";
-      });
-      btnElem.className = "leader-tab py-1.5 rounded-lg text-[11px] font-bold bg-cardBg text-amber-400 border border-amber-500/40";
-    }
-
-    // ALUR TAMPILAN DINAMIS
     function selectGame() {
       const cardGame = document.getElementById('cardGameFF');
       cardGame.classList.toggle('border-amber-500');
@@ -465,7 +421,6 @@
       document.getElementById('sectionDuration').classList.toggle('hidden');
     }
 
-    // SALIN ID TELEGRAM
     function copyID() {
       const idText = document.getElementById('profId').innerText;
       navigator.clipboard.writeText(idText);
@@ -476,7 +431,6 @@
       }
     }
 
-    // PROSES PEMBELIAN
     window.buyProduct = function() {
       const selectedPkg = document.querySelector('input[name="package"]:checked').value;
       if (tg && tg.showPopup) {
