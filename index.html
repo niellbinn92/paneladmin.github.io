@@ -207,7 +207,7 @@
       </div>
     </div>
 
-    <!-- TAB 3: TOP UP SALDO (MANUAL) -->
+    <!-- TAB 3: TOP UP SALDO & LEADERBOARD -->
     <div id="tabTopUp" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 text-center">
         <i class="fa-solid fa-wallet text-amber-500 text-3xl mb-2"></i>
@@ -222,9 +222,101 @@
           </div>
         </div>
 
-        <a href="https://t.me/admin" target="_blank" class="mt-4 inline-block w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition">
-          <i class="fa-brands fa-telegram mr-1.5 text-base"></i> HUBUNGI ADMIN
-        </a>
+        <!-- TOMBOL HUBUNGI ADMIN (TELEGRAM & WHATSAPP) -->
+        <div class="mt-4 space-y-2">
+          <a href="https://t.me/Niellstorez" target="_blank" class="block w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-xl text-xs transition text-center shadow-lg">
+            <i class="fa-brands fa-telegram mr-1.5 text-base"></i> HUBUNGI VIA TELEGRAM
+          </a>
+          <a href="https://wa.me/6285194336082?text=Halo%20Admin,%20saya%20mau%20top%20up%20saldo%20store." target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition text-center shadow-lg">
+            <i class="fa-brands fa-whatsapp mr-1.5 text-base"></i> HUBUNGI VIA WHATSAPP
+          </a>
+        </div>
+      </div>
+
+      <!-- SECTION LEADERBOARD -->
+      <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3 mt-4">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-coins text-accentGold text-lg"></i>
+          <div>
+            <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">LEADERBOARD</h3>
+            <p class="text-[10px] text-slate-400">Top depositor / pembeli terbanyak</p>
+          </div>
+        </div>
+
+        <!-- TAB FILTER LEADERBOARD -->
+        <div class="grid grid-cols-3 gap-1.5 bg-darkBg p-1 rounded-xl border border-borderBg text-center">
+          <button onclick="switchLeaderboard('month', this)" class="leader-tab py-1.5 rounded-lg text-[11px] font-bold bg-cardBg text-amber-400 border border-amber-500/40">BULAN INI</button>
+          <button onclick="switchLeaderboard('week', this)" class="leader-tab py-1.5 rounded-lg text-[11px] font-bold text-slate-400">MINGGU INI</button>
+          <button onclick="switchLeaderboard('all', this)" class="leader-tab py-1.5 rounded-lg text-[11px] font-bold text-slate-400">SEMUA</button>
+        </div>
+
+        <!-- LIST RANKING -->
+        <div class="space-y-2 pt-1">
+          <!-- Rank 1 -->
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-amber-500 text-black font-extrabold flex items-center justify-center text-xs">1</div>
+              <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-xs border border-amber-500/30">NS</div>
+              <div>
+                <p class="text-xs font-bold text-white">Niellstorez</p>
+                <p class="text-[10px] text-slate-400">@Niellstorez · ID: 8251671543</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 1.200.000</span>
+          </div>
+
+          <!-- Rank 2 -->
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-slate-700 text-slate-200 font-extrabold flex items-center justify-center text-xs">2</div>
+              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">HO</div>
+              <div>
+                <p class="text-xs font-bold text-white">h_oney</p>
+                <p class="text-[10px] text-slate-400">ID: 8766228147</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-slate-300">Rp 50.000</span>
+          </div>
+
+          <!-- Rank 3 -->
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-amber-700/60 text-amber-200 font-extrabold flex items-center justify-center text-xs">3</div>
+              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">FX</div>
+              <div>
+                <p class="text-xs font-bold text-white">Fikri Mod</p>
+                <p class="text-[10px] text-slate-400">ID: 9182736450</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-slate-300">Rp 35.000</span>
+          </div>
+
+          <!-- Rank 4 -->
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-extrabold flex items-center justify-center text-xs">4</div>
+              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">RD</div>
+              <div>
+                <p class="text-xs font-bold text-white">Randi Store</p>
+                <p class="text-[10px] text-slate-400">ID: 5544332211</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-slate-400">Rp 20.000</span>
+          </div>
+
+          <!-- Rank 5 -->
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-extrabold flex items-center justify-center text-xs">5</div>
+              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">AZ</div>
+              <div>
+                <p class="text-xs font-bold text-white">Asep ID</p>
+                <p class="text-[10px] text-slate-400">ID: 6677889900</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-slate-400">Rp 10.000</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -275,7 +367,6 @@
 
   <!-- JAVASCRIPT LOGIC & API GOOGLE SHEETS -->
   <script>
-    // URL Google Apps Script Web App Anda
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxokUwtbcp60wD1QOn75hpoMCWo_qmgyHelW20z5u_c1hbsg149u-Gh-5NA5_nThAKzjQ/exec";
 
     const tg = window.Telegram ? window.Telegram.WebApp : null;
@@ -290,7 +381,7 @@
       let progress = 0;
       const progressElem = document.getElementById('loadingProgress');
       
-      let telegramId = "8251671543"; // Default ID test jika dibuka di browser biasa
+      let telegramId = "8251671543";
       let fullName = "Niellstorez";
       let userPhoto = "https://via.placeholder.com/45";
 
@@ -301,7 +392,6 @@
         if (user.photo_url) userPhoto = user.photo_url;
       }
 
-      // Tampilkan info user ke UI
       document.getElementById('userName').innerText = fullName;
       document.getElementById('profName').innerText = fullName;
       document.getElementById('userId').innerText = `ID: ${telegramId}`;
@@ -309,14 +399,12 @@
       document.getElementById('depositUserId').innerText = `ID: ${telegramId}`;
       document.getElementById('userAvatar').src = userPhoto;
 
-      // Simulasi progress bar & fetch saldo dari Google Sheets
       const interval = setInterval(async () => {
         progress += 30;
         progressElem.innerText = `MENYINKRONKAN SALDO... ${progress}%`;
         
         if (progress >= 90) {
           clearInterval(interval);
-          // Ambil Saldo dari Google Sheets
           try {
             const response = await fetch(`${SCRIPT_URL}?action=getBalance&id=${telegramId}`);
             const result = await response.json();
@@ -330,7 +418,7 @@
             document.getElementById('profBalance').innerText = formattedSaldo;
           } catch (error) {
             console.error("Gagal mengambil saldo:", error);
-            document.getElementById('userBalance').innerText = "Rp 1.200.000"; // Fallback data sheet Anda
+            document.getElementById('userBalance').innerText = "Rp 1.200.000";
             document.getElementById('profBalance').innerText = "Rp 1.200.000";
           }
 
@@ -354,6 +442,14 @@
       });
       btnElem.classList.remove('text-slate-400');
       btnElem.classList.add('text-amber-500');
+    }
+
+    // FILTER LEADERBOARD TAB
+    function switchLeaderboard(type, btnElem) {
+      document.querySelectorAll('.leader-tab').forEach(btn => {
+        btn.className = "leader-tab py-1.5 rounded-lg text-[11px] font-bold text-slate-400";
+      });
+      btnElem.className = "leader-tab py-1.5 rounded-lg text-[11px] font-bold bg-cardBg text-amber-400 border border-amber-500/40";
     }
 
     // ALUR TAMPILAN DINAMIS
