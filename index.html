@@ -38,7 +38,7 @@
 </head>
 <body class="bg-darkBg min-h-screen text-slate-200 pb-24">
 
-  <!-- 1. LOADING SCREEN (1 - 100% PAS) -->
+  <!-- 1. LOADING SCREEN -->
   <div id="loadingScreen" class="fixed inset-0 bg-darkBg z-50 flex flex-col items-center justify-center transition-opacity duration-500">
     <div class="relative w-16 h-16 border-4 border-slate-700 border-t-accentGold rounded-full animate-spin mb-6"></div>
     <p class="text-sm tracking-wider font-semibold text-slate-300">MEMUAT APLIKASI</p>
@@ -294,7 +294,7 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxokUwtbcp60wD1QOn75hpoMCWo_qmgyHelW20z5u_c1hbsg149u-Gh-5NA5_nThAKzjQ/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtHQxKhsY5xXHGvEe5fjRqDxErFxjyefvY98d0SVjg6m5cNV8Ux1mRYQu1_LQXGbDXZA/exec";
 
     const tg = window.Telegram ? window.Telegram.WebApp : null;
 
@@ -325,7 +325,6 @@
       document.getElementById('depositUserId').innerText = `ID: ${telegramId}`;
       document.getElementById('userAvatar').src = userPhoto;
 
-      // Fetch data di latar belakang
       let fetchedBalance = "Rp 0";
       let leaderboardHtml = `<p class="text-xs text-slate-500 text-center py-4">Belum ada data leaderboard.</p>`;
 
@@ -366,11 +365,9 @@
           }
         } catch (error) {
           console.error("Gagal sinkronisasi data:", error);
-          fetchedBalance = "Rp 1.200.000";
         }
       })();
 
-      // Animasi loading 1% sampai 100% yang natural (tidak lambat, tidak cepat)
       const loadingInterval = setInterval(() => {
         currentPercent += 5;
         if (currentPercent > 100) currentPercent = 100;
@@ -380,12 +377,10 @@
         if (currentPercent === 100) {
           clearInterval(loadingInterval);
           
-          // Masukkan data hasil fetch ke elemen UI
           document.getElementById('userBalance').innerText = fetchedBalance;
           document.getElementById('profBalance').innerText = fetchedBalance;
           document.getElementById('leaderboardContainer').innerHTML = leaderboardHtml;
 
-          // Tutup loading screen
           setTimeout(() => {
             document.getElementById('loadingScreen').classList.add('opacity-0');
             setTimeout(() => {
@@ -394,7 +389,7 @@
             }, 400);
           }, 200);
         }
-      }, 70); // Kecepatan interval pas (total sekitar 1.4 detik)
+      }, 70);
     });
 
     function switchTab(tabId, btnElem) {
