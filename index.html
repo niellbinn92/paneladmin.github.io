@@ -36,7 +36,7 @@
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-darkBg min-h-screen text-slate-200 pb-20">
+<body class="bg-darkBg min-h-screen text-slate-200 pb-24">
 
   <!-- 1. LOADING SCREEN -->
   <div id="loadingScreen" class="fixed inset-0 bg-darkBg z-50 flex flex-col items-center justify-center transition-opacity duration-500">
@@ -53,7 +53,6 @@
       <div class="flex items-center space-x-3">
         <img id="userAvatar" src="https://via.placeholder.com/45" class="w-11 h-11 rounded-full border border-slate-600 object-cover" alt="User Avatar">
         <div>
-          <!-- Tanpa Badge VIP -->
           <div class="flex items-center space-x-1.5">
             <span id="userName" class="font-bold text-white text-sm">#PENGGUNA</span>
           </div>
@@ -74,43 +73,63 @@
         <i class="fa-solid fa-key text-accentGold text-2xl"></i>
         <div>
           <h2 class="font-bold text-sm text-white uppercase tracking-wide">BELI KEY & LISENSI</h2>
-          <p class="text-xs text-slate-400">Layanan otomatis & terpercaya</p>
+          <p class="text-xs text-slate-400">Pilih game untuk melihat produk</p>
         </div>
       </div>
 
-      <!-- KATEGORI GAME (Hanya Free Fire) -->
+      <!-- KATEGORI GAME -->
       <div>
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Kategori Game</p>
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Pilih Game</p>
         <div class="grid grid-cols-1 gap-2">
-          <div class="bg-cardBg border-2 border-amber-500 rounded-xl p-3 flex items-center space-x-3">
-            <i class="fa-solid fa-fire text-amber-500 text-lg"></i>
-            <span class="text-xs font-bold text-white">FREE FIRE</span>
-          </div>
+          <button onclick="selectGame()" id="cardGameFF" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between transition text-left">
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-fire text-amber-500 text-lg"></i>
+              <div>
+                <p class="text-xs font-bold text-white">FREE FIRE</p>
+                <p class="text-[10px] text-slate-400">Tersedia Mod & Cheat Menu</p>
+              </div>
+            </div>
+            <i id="checkGameIcon" class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+          </button>
         </div>
       </div>
 
-      <!-- KATEGORI PRODUK (PHANTOM) -->
-      <div>
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Pilih Produk</p>
-        <div class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+      <!-- PRODUK PHANTOM (MUNCUL SETELAH GAME DIPILIH) -->
+      <div id="sectionProduct" class="hidden space-y-3 animate-fadeIn">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Pilih Produk</p>
+        <div onclick="selectProduct()" id="cardProductPhantom" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between cursor-pointer transition">
           <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-ghost text-slate-300"></i>
-            <span class="text-sm font-semibold text-white">PHANTOM MOD</span>
+            <i class="fa-solid fa-ghost text-slate-300 text-lg"></i>
+            <div>
+              <p class="text-xs font-bold text-white">PHANTOM MOD</p>
+              <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">READY STOCK</span>
+            </div>
           </div>
-          <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">READY STOCK</span>
+          <i id="checkProdIcon" class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
         </div>
       </div>
 
-      <!-- PAKET LISENSI -->
-      <div>
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Pilih Paket Durasi</p>
+      <!-- PILIHAN DURASI (MUNCUL SETELAH PRODUK DIPILIH) -->
+      <div id="sectionDuration" class="hidden space-y-3 animate-fadeIn">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">3. Pilih Durasi Paket</p>
         <div class="space-y-2">
           <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="1 Hari" checked class="accent-amber-500">
+              <input type="radio" name="package" value="6 Jam - Rp 10.000" checked class="accent-amber-500">
               <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 1 HARI</p>
-                <p class="text-[11px] text-slate-400">Lisensi Aktif 24 Jam</p>
+                <p class="text-xs font-bold text-white">PHANTOM - 6 JAM</p>
+                <p class="text-[11px] text-slate-400">Akses Cepat 6 Jam</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 10.000</span>
+          </label>
+
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="12 Jam - Rp 15.000" class="accent-amber-500">
+              <div>
+                <p class="text-xs font-bold text-white">PHANTOM - 12 JAM</p>
+                <p class="text-[11px] text-slate-400">Akses Aktif 12 Jam</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 15.000</span>
@@ -118,35 +137,78 @@
 
           <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="7 Hari" class="accent-amber-500">
+              <input type="radio" name="package" value="1 Day - Rp 17.000" class="accent-amber-500">
               <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 7 HARI</p>
-                <p class="text-[11px] text-slate-400">Lisensi Aktif 7 Hari</p>
+                <p class="text-xs font-bold text-white">PHANTOM - 1 DAY</p>
+                <p class="text-[11px] text-slate-400">Lisensi Aktif 24 Jam</p>
               </div>
             </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 50.000</span>
+            <span class="text-xs font-extrabold text-accentGold">Rp 17.000</span>
           </label>
 
           <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="30 Hari" class="accent-amber-500">
+              <input type="radio" name="package" value="3 Day - Rp 35.000" class="accent-amber-500">
               <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 30 HARI</p>
-                <p class="text-[11px] text-slate-400">Lisensi Aktif 30 Hari</p>
+                <p class="text-xs font-bold text-white">PHANTOM - 3 DAY</p>
+                <p class="text-[11px] text-slate-400">Lisensi Aktif 3 Hari</p>
               </div>
             </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 150.000</span>
+            <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
+
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="7 Day - Rp 55.000" class="accent-amber-500">
+              <div>
+                <p class="text-xs font-bold text-white">PHANTOM - 7 DAY</p>
+                <p class="text-[11px] text-slate-400">Lisensi Aktif 7 Hari</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 55.000</span>
+          </label>
+
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="30 Day - Rp 130.000" class="accent-amber-500">
+              <div>
+                <p class="text-xs font-bold text-white">PHANTOM - 30 DAY</p>
+                <p class="text-[11px] text-slate-400">Lisensi Bulanan (Hemat)</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 130.000</span>
+          </label>
+        </div>
+
+        <!-- TOMBOL BELI -->
+        <button onclick="buyProduct()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm transition tracking-wider shadow-lg shadow-amber-500/10 mt-4">
+          BELI SEKARANG
+        </button>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: PURCHASE ORDER (RIWAYAT PEMBELIAN) -->
+    <div id="tabOrders" class="tab-content hidden space-y-4">
+      <div class="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-4 flex items-center space-x-3">
+        <i class="fa-solid fa-receipt text-accentGold text-2xl"></i>
+        <div>
+          <h2 class="font-bold text-sm text-white uppercase tracking-wide">RIWAYAT PEMBELIAN</h2>
+          <p class="text-xs text-slate-400">Daftar transaksi & key yang Anda beli</p>
         </div>
       </div>
 
-      <!-- TOMBOL BELI -->
-      <button onclick="buyProduct()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm transition tracking-wider shadow-lg shadow-amber-500/10">
-        BELI SEKARANG
-      </button>
+      <!-- KONTROL / LIST ORDER KOSONG ATAU ADA -->
+      <div id="orderListContainer" class="space-y-2">
+        <div class="bg-cardBg border border-borderBg rounded-2xl p-6 text-center space-y-2">
+          <i class="fa-solid fa-box-open text-slate-500 text-3xl mb-1"></i>
+          <p class="text-xs font-bold text-white">Belum Ada Transaksi</p>
+          <p class="text-[11px] text-slate-400">Setiap pembelian key Phantom Anda akan tercatat otomatis di sini.</p>
+        </div>
+      </div>
     </div>
 
-    <!-- TAB 2: TOP UP SALDO (MANUAL) -->
+    <!-- TAB 3: TOP UP SALDO (MANUAL) -->
     <div id="tabTopUp" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 text-center">
         <i class="fa-solid fa-wallet text-amber-500 text-3xl mb-2"></i>
@@ -167,32 +229,40 @@
       </div>
     </div>
 
-    <!-- TAB 3: PROFIL SAYA -->
+    <!-- TAB 4: ACCOUNT OVERVIEW & PROFIL -->
     <div id="tabProfile" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
-        <h3 class="text-xs font-bold text-slate-400 uppercase">Informasi Akun</h3>
-        <div class="flex justify-between text-xs py-1 border-b border-slate-800">
+        <h3 class="text-xs font-bold text-slate-400 uppercase">Account Overview</h3>
+        <div class="flex justify-between text-xs py-1.5 border-b border-slate-800">
           <span class="text-slate-400">Nama Akun</span>
           <span id="profName" class="font-bold text-white">-</span>
         </div>
-        <div class="flex justify-between text-xs py-1 border-b border-slate-800">
+        <div class="flex justify-between text-xs py-1.5 border-b border-slate-800">
           <span class="text-slate-400">ID Telegram</span>
           <span id="profId" class="font-bold text-white">-</span>
         </div>
-        <div class="flex justify-between text-xs py-1">
+        <div class="flex justify-between text-xs py-1.5 border-b border-slate-800">
           <span class="text-slate-400">Total Saldo</span>
           <span id="profBalance" class="font-bold text-amber-400">Rp 0</span>
+        </div>
+        <div class="flex justify-between text-xs py-1.5">
+          <span class="text-slate-400">Status Akun</span>
+          <span class="font-bold text-emerald-400">Aktif / Terverifikasi</span>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- 3. BOTTOM NAVIGATION BAR (BAHASA INDONESIA) -->
+  <!-- 3. BOTTOM NAVIGATION BAR -->
   <div class="fixed bottom-0 left-0 right-0 bg-cardBg border-t border-borderBg max-w-md mx-auto flex justify-around py-2.5 z-40">
     <button onclick="switchTab('tabBeliKey', this)" class="nav-btn flex flex-col items-center text-amber-500">
       <i class="fa-solid fa-key text-base"></i>
       <span class="text-[10px] font-bold mt-1">BELI KEY</span>
+    </button>
+    <button onclick="switchTab('tabOrders', this)" class="nav-btn flex flex-col items-center text-slate-400">
+      <i class="fa-solid fa-receipt text-base"></i>
+      <span class="text-[10px] font-bold mt-1">ORDER</span>
     </button>
     <button onclick="switchTab('tabTopUp', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-wallet text-base"></i>
@@ -204,7 +274,7 @@
     </button>
   </div>
 
-  <!-- JAVASCRIPT INTEGRATION -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
     const tg = window.Telegram ? window.Telegram.WebApp : null;
 
@@ -261,6 +331,24 @@
       btnElem.classList.add('text-amber-500');
     }
 
+    // ALUR TAMPILAN DINAMIS (PILIH GAME -> MUNCUL PRODUK)
+    function selectGame() {
+      const cardGame = document.getElementById('cardGameFF');
+      cardGame.classList.toggle('border-amber-500');
+      
+      const secProd = document.getElementById('sectionProduct');
+      secProd.classList.toggle('hidden');
+    }
+
+    // ALUR TAMPILAN DINAMIS (PILIH PRODUK -> MUNCUL DURASI)
+    function selectProduct() {
+      const cardProd = document.getElementById('cardProductPhantom');
+      cardProd.classList.toggle('border-amber-500');
+      
+      const secDur = document.getElementById('sectionDuration');
+      secDur.classList.toggle('hidden');
+    }
+
     // SALIN ID TELEGRAM
     function copyID() {
       const idText = document.getElementById('profId').innerText;
@@ -272,20 +360,56 @@
       }
     }
 
-    // PROSES BELI
-    function buyProduct() {
+    // PROSES BELI & SIMPAN KE PURCHASE ORDER
+    void function buyProduct() {
+      // Dibuat global scope function
+    };
+
+    window.buyProduct = function() {
       const selectedPkg = document.querySelector('input[name="package"]:checked').value;
       if (tg && tg.showPopup) {
         tg.showPopup({
           title: "Konfirmasi Pembelian",
-          message: `Apakah Anda yakin ingin membeli paket Phantom - ${selectedPkg}?`,
+          message: `Beli Phantom Free Fire (${selectedPkg})?`,
           buttons: [
             { type: "ok", text: "Beli" },
             { type: "cancel", text: "Batal" }
           ]
+        }, (buttonId) => {
+          if (buttonId === 'ok') {
+            saveOrderToHistory(selectedPkg);
+          }
         });
       } else {
-        alert(`Membeli paket Phantom - ${selectedPkg}`);
+        if (confirm(`Beli Phantom Free Fire (${selectedPkg})?`)) {
+          saveOrderToHistory(selectedPkg);
+        }
+      }
+    }
+
+    function saveOrderToHistory(packageName) {
+      const container = document.getElementById('orderListContainer');
+      
+      // Hapus pesan kosong jika ada
+      if (container.querySelector('.fa-box-open')) {
+        container.innerHTML = '';
+      }
+
+      const orderCard = document.createElement('div');
+      orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 flex justify-between items-center";
+      orderCard.innerHTML = `
+        <div>
+          <p class="text-xs font-bold text-white">Phantom - ${packageName}</p>
+          <p class="text-[10px] text-slate-400">Status: <span class="text-emerald-400 font-bold">SUCCESS (Key Ready)</span></p>
+        </div>
+        <span class="text-[10px] bg-amber-500/20 text-amber-400 font-bold px-2 py-1 rounded">DETAIL</span>
+      `;
+      container.prepend(orderCard);
+
+      if (tg && tg.showAlert) {
+        tg.showAlert("Pembelian berhasil! Cek menu Purchase Order.");
+      } else {
+        alert("Pembelian berhasil!");
       }
     }
   </script>
