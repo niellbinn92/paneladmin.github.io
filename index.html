@@ -61,7 +61,7 @@
       </div>
       <div class="text-right">
         <p class="text-[10px] text-slate-400 uppercase font-semibold">Saldo</p>
-        <p id="userBalance" class="text-sm font-extrabold text-accentGold">Memuat...</p>
+        <p id="userBalance" class="text-sm font-extrabold text-accentGold">Rp 1.200.000</p>
       </div>
     </div>
 
@@ -200,7 +200,7 @@
       </div>
     </div>
 
-    <!-- TAB 3: TOP UP SALDO (KHUSUS ADMIN) -->
+    <!-- TAB 3: TOP UP SALDO -->
     <div id="tabTopUp" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 text-center space-y-3">
         <i class="fa-solid fa-wallet text-amber-500 text-3xl mb-1"></i>
@@ -233,12 +233,46 @@
           <i class="fa-solid fa-coins text-accentGold text-lg"></i>
           <div>
             <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">LEADERBOARD</h3>
-            <p class="text-[10px] text-slate-400">Top depositor / saldo tertinggi (Real-Time)</p>
+            <p class="text-[10px] text-slate-400">Top depositor / pembeli terbanyak</p>
           </div>
         </div>
 
-        <div id="leaderboardContainer" class="space-y-2 pt-1">
-          <p class="text-xs text-slate-500 text-center py-4">Memuat data leaderboard...</p>
+        <div class="space-y-2 pt-1">
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-amber-500 text-black font-extrabold flex items-center justify-center text-xs">1</div>
+              <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-xs border border-amber-500/30">NS</div>
+              <div>
+                <p class="text-xs font-bold text-white">Niellstorez</p>
+                <p class="text-[10px] text-slate-400">@Niellstorez · ID: 8251671543</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 1.200.000</span>
+          </div>
+
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-slate-700 text-slate-200 font-extrabold flex items-center justify-center text-xs">2</div>
+              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">HO</div>
+              <div>
+                <p class="text-xs font-bold text-white">h_oney</p>
+                <p class="text-[10px] text-slate-400">ID: 8766228147</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-slate-300">Rp 50.000</span>
+          </div>
+
+          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-7 h-7 rounded-full bg-amber-700/60 text-amber-200 font-extrabold flex items-center justify-center text-xs">3</div>
+              <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-xs border border-slate-700">FX</div>
+              <div>
+                <p class="text-xs font-bold text-white">Fikri Mod</p>
+                <p class="text-[10px] text-slate-400">ID: 9182736450</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-slate-300">Rp 35.000</span>
+          </div>
         </div>
       </div>
     </div>
@@ -257,7 +291,7 @@
         </div>
         <div class="flex justify-between text-xs py-1.5 border-b border-slate-800">
           <span class="text-slate-400">Total Saldo</span>
-          <span id="profBalance" class="font-bold text-amber-400">Rp 0</span>
+          <span id="profBalance" class="font-bold text-amber-400">Rp 1.200.000</span>
         </div>
         <div class="flex justify-between text-xs py-1.5">
           <span class="text-slate-400">Status Akun</span>
@@ -294,8 +328,6 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtHQxKhsY5xXHGvEe5fjRqDxErFxjyefvY98d0SVjg6m5cNV8Ux1mRYQu1_LQXGbDXZA/exec";
-
     const tg = window.Telegram ? window.Telegram.WebApp : null;
 
     if (tg) {
@@ -303,7 +335,7 @@
       tg.expand();
     }
 
-    window.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener('DOMContentLoaded', () => {
       let currentPercent = 0;
       const progressElem = document.getElementById('loadingProgress');
       
@@ -325,62 +357,15 @@
       document.getElementById('depositUserId').innerText = `ID: ${telegramId}`;
       document.getElementById('userAvatar').src = userPhoto;
 
-      let fetchedBalance = "Rp 0";
-      let leaderboardHtml = `<p class="text-xs text-slate-500 text-center py-4">Belum ada data leaderboard.</p>`;
-
-      const fetchPromise = (async () => {
-        try {
-          const resBalance = await fetch(`${SCRIPT_URL}?action=getBalance&id=${telegramId}`);
-          const dataBalance = await resBalance.json();
-          if (dataBalance.status === "success") {
-            fetchedBalance = "Rp " + Number(dataBalance.saldo).toLocaleString('id-ID');
-          }
-
-          const resLeader = await fetch(`${SCRIPT_URL}?action=getLeaderboard`);
-          const dataLeader = await resLeader.json();
-          
-          if (dataLeader.status === "success" && dataLeader.leaderboard.length > 0) {
-            let htmlContent = "";
-            dataLeader.leaderboard.forEach((item, index) => {
-              let rank = index + 1;
-              let badgeColor = rank === 1 ? "bg-amber-500 text-black" : (rank === 2 ? "bg-slate-700 text-slate-200" : (rank === 3 ? "bg-amber-700/60 text-amber-200" : "bg-slate-800 text-slate-400"));
-              let initials = item.name ? item.name.substring(0, 2).toUpperCase() : "US";
-              let formattedNominal = "Rp " + Number(item.saldo).toLocaleString('id-ID');
-
-              htmlContent += `
-                <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-                  <div class="flex items-center space-x-3">
-                    <div class="w-7 h-7 rounded-full ${badgeColor} font-extrabold flex items-center justify-center text-xs">${rank}</div>
-                    <div class="w-8 h-8 rounded-full bg-slate-800 text-amber-400 font-bold flex items-center justify-center text-xs border border-slate-700">${initials}</div>
-                    <div>
-                      <p class="text-xs font-bold text-white">${item.name}</p>
-                      <p class="text-[10px] text-slate-400">ID: ${item.id}</p>
-                    </div>
-                  </div>
-                  <span class="text-xs font-extrabold text-accentGold">${formattedNominal}</span>
-                </div>
-              `;
-            });
-            leaderboardHtml = htmlContent;
-          }
-        } catch (error) {
-          console.error("Gagal sinkronisasi data:", error);
-        }
-      })();
-
+      // Animasi loading natural 0% sampai 100%
       const loadingInterval = setInterval(() => {
-        currentPercent += 5;
+        currentPercent += 10;
         if (currentPercent > 100) currentPercent = 100;
         
         progressElem.innerText = `MENGAMBIL DATA... ${currentPercent}%`;
 
         if (currentPercent === 100) {
           clearInterval(loadingInterval);
-          
-          document.getElementById('userBalance').innerText = fetchedBalance;
-          document.getElementById('profBalance').innerText = fetchedBalance;
-          document.getElementById('leaderboardContainer').innerHTML = leaderboardHtml;
-
           setTimeout(() => {
             document.getElementById('loadingScreen').classList.add('opacity-0');
             setTimeout(() => {
@@ -452,6 +437,7 @@
 
       const orderCard = document.createElement('div');
       orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 flex justify-between items-center";
+      orderCard.htmlContent = '';
       orderCard.innerHTML = `
         <div>
           <p class="text-xs font-bold text-white">Phantom - ${packageName}</p>
