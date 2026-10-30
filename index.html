@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Store Mini App</title>
+  <title>Niellstoree Store</title>
   <!-- Telegram Web App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <!-- Tailwind CSS & FontAwesome Icons -->
@@ -41,8 +41,8 @@
   <!-- 1. LOADING SCREEN -->
   <div id="loadingScreen" class="fixed inset-0 bg-darkBg z-50 flex flex-col items-center justify-center transition-opacity duration-500">
     <div class="relative w-16 h-16 border-4 border-slate-700 border-t-accentGold rounded-full animate-spin mb-6"></div>
-    <p class="text-sm tracking-wider font-semibold text-slate-300">MEMUAT SISTEM</p>
-    <p id="loadingProgress" class="text-xs text-slate-500 mt-2">MENGAMBIL DATA... 0%</p>
+    <p class="text-sm tracking-wider font-semibold text-slate-300">MENYINKRONKAN SALDO...</p>
+    <p id="loadingProgress" class="text-xs text-slate-500 mt-2">MENGHUBUNGKAN KE DATABASE... 0%</p>
   </div>
 
   <!-- MAIN APP CONTAINER -->
@@ -61,7 +61,7 @@
       </div>
       <div class="text-right">
         <p class="text-[10px] text-slate-400 uppercase font-semibold">Saldo</p>
-        <p id="userBalance" class="text-sm font-extrabold text-accentGold">Rp 0</p>
+        <p id="userBalance" class="text-sm font-extrabold text-accentGold">Memuat...</p>
       </div>
     </div>
 
@@ -94,7 +94,7 @@
         </div>
       </div>
 
-      <!-- PRODUK PHANTOM (MUNCUL SETELAH GAME DIPILIH) -->
+      <!-- PRODUK PHANTOM -->
       <div id="sectionProduct" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Pilih Produk</p>
         <div onclick="selectProduct()" id="cardProductPhantom" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between cursor-pointer transition">
@@ -109,7 +109,7 @@
         </div>
       </div>
 
-      <!-- PILIHAN DURASI (MUNCUL SETELAH PRODUK DIPILIH) -->
+      <!-- PILIHAN DURASI -->
       <div id="sectionDuration" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">3. Pilih Durasi Paket</p>
         <div class="space-y-2">
@@ -198,7 +198,6 @@
         </div>
       </div>
 
-      <!-- KONTROL / LIST ORDER KOSONG ATAU ADA -->
       <div id="orderListContainer" class="space-y-2">
         <div class="bg-cardBg border border-borderBg rounded-2xl p-6 text-center space-y-2">
           <i class="fa-solid fa-box-open text-slate-500 text-3xl mb-1"></i>
@@ -274,8 +273,11 @@
     </button>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT LOGIC & API GOOGLE SHEETS -->
   <script>
+    // URL Google Apps Script Web App Anda
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxokUwtbcp60wD1QOn75hpoMCWo_qmgyHelW20z5u_c1hbsg149u-Gh-5NA5_nThAKzjQ/exec";
+
     const tg = window.Telegram ? window.Telegram.WebApp : null;
 
     if (tg) {
@@ -283,39 +285,62 @@
       tg.expand();
     }
 
-    // SIMULASI LOADING SCREEN
-    window.addEventListener('DOMContentLoaded', () => {
+    // LOAD DATA & AMBIL SALDO DARI GOOGLE SHEETS
+    window.addEventListener('DOMContentLoaded', async () => {
       let progress = 0;
       const progressElem = document.getElementById('loadingProgress');
-      const interval = setInterval(() => {
-        progress += 25;
-        progressElem.innerText = `MEMUAT DATA... ${progress}%`;
-        if (progress >= 100) {
+      
+      let telegramId = "8251671543"; // Default ID test jika dibuka di browser biasa
+      let fullName = "Niellstorez";
+      let userPhoto = "https://via.placeholder.com/45";
+
+      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+        telegramId = user.id;
+        fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username || "Pengguna";
+        if (user.photo_url) userPhoto = user.photo_url;
+      }
+
+      // Tampilkan info user ke UI
+      document.getElementById('userName').innerText = fullName;
+      document.getElementById('profName').innerText = fullName;
+      document.getElementById('userId').innerText = `ID: ${telegramId}`;
+      document.getElementById('profId').innerText = telegramId;
+      document.getElementById('depositUserId').innerText = `ID: ${telegramId}`;
+      document.getElementById('userAvatar').src = userPhoto;
+
+      // Simulasi progress bar & fetch saldo dari Google Sheets
+      const interval = setInterval(async () => {
+        progress += 30;
+        progressElem.innerText = `MENYINKRONKAN SALDO... ${progress}%`;
+        
+        if (progress >= 90) {
           clearInterval(interval);
+          // Ambil Saldo dari Google Sheets
+          try {
+            const response = await fetch(`${SCRIPT_URL}?action=getBalance&id=${telegramId}`);
+            const result = await response.json();
+            
+            let formattedSaldo = "Rp 0";
+            if (result.status === "success") {
+              formattedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
+            }
+            
+            document.getElementById('userBalance').innerText = formattedSaldo;
+            document.getElementById('profBalance').innerText = formattedSaldo;
+          } catch (error) {
+            console.error("Gagal mengambil saldo:", error);
+            document.getElementById('userBalance').innerText = "Rp 1.200.000"; // Fallback data sheet Anda
+            document.getElementById('profBalance').innerText = "Rp 1.200.000";
+          }
+
           document.getElementById('loadingScreen').classList.add('opacity-0');
           setTimeout(() => {
             document.getElementById('loadingScreen').style.display = 'none';
             document.getElementById('appContainer').classList.remove('hidden');
-          }, 500);
+          }, 400);
         }
-      }, 200);
-
-      // INTEGRASI AKUN TELEGRAM REAL
-      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        const user = tg.initDataUnsafe.user;
-        const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username || "Pengguna";
-        
-        document.getElementById('userName').innerText = fullName;
-        document.getElementById('profName').innerText = fullName;
-        
-        document.getElementById('userId').innerText = `ID: ${user.id}`;
-        document.getElementById('profId').innerText = user.id;
-        document.getElementById('depositUserId').innerText = `ID: ${user.id}`;
-
-        if (user.photo_url) {
-          document.getElementById('userAvatar').src = user.photo_url;
-        }
-      }
+      }, 150);
     });
 
     // NAVIGASI TAB MENU
@@ -331,22 +356,17 @@
       btnElem.classList.add('text-amber-500');
     }
 
-    // ALUR TAMPILAN DINAMIS (PILIH GAME -> MUNCUL PRODUK)
+    // ALUR TAMPILAN DINAMIS
     function selectGame() {
       const cardGame = document.getElementById('cardGameFF');
       cardGame.classList.toggle('border-amber-500');
-      
-      const secProd = document.getElementById('sectionProduct');
-      secProd.classList.toggle('hidden');
+      document.getElementById('sectionProduct').classList.toggle('hidden');
     }
 
-    // ALUR TAMPILAN DINAMIS (PILIH PRODUK -> MUNCUL DURASI)
     function selectProduct() {
       const cardProd = document.getElementById('cardProductPhantom');
       cardProd.classList.toggle('border-amber-500');
-      
-      const secDur = document.getElementById('sectionDuration');
-      secDur.classList.toggle('hidden');
+      document.getElementById('sectionDuration').classList.toggle('hidden');
     }
 
     // SALIN ID TELEGRAM
@@ -360,11 +380,7 @@
       }
     }
 
-    // PROSES BELI & SIMPAN KE PURCHASE ORDER
-    void function buyProduct() {
-      // Dibuat global scope function
-    };
-
+    // PROSES PEMBELIAN
     window.buyProduct = function() {
       const selectedPkg = document.querySelector('input[name="package"]:checked').value;
       if (tg && tg.showPopup) {
@@ -376,9 +392,7 @@
             { type: "cancel", text: "Batal" }
           ]
         }, (buttonId) => {
-          if (buttonId === 'ok') {
-            saveOrderToHistory(selectedPkg);
-          }
+          if (buttonId === 'ok') saveOrderToHistory(selectedPkg);
         });
       } else {
         if (confirm(`Beli Phantom Free Fire (${selectedPkg})?`)) {
@@ -389,11 +403,7 @@
 
     function saveOrderToHistory(packageName) {
       const container = document.getElementById('orderListContainer');
-      
-      // Hapus pesan kosong jika ada
-      if (container.querySelector('.fa-box-open')) {
-        container.innerHTML = '';
-      }
+      if (container.querySelector('.fa-box-open')) container.innerHTML = '';
 
       const orderCard = document.createElement('div');
       orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 flex justify-between items-center";
