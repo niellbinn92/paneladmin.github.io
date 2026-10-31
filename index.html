@@ -442,35 +442,22 @@
     function copyID() {
       const idText = document.getElementById('profId').innerText;
       navigator.clipboard.writeText(idText);
-      if (tg && tg.showAlert) {
-        tg.showAlert("ID Telegram berhasil disalin!");
-      } else {
-        alert("ID Telegram berhasil disalin!");
-      }
+      alert("ID Telegram berhasil disalin!");
     }
 
+    // FUNGSI BELI YANG UNIVERSAL & RESPONSIF
     window.buyProduct = async function() {
       const selectedRadio = document.querySelector('input[name="package"]:checked');
-      if (!selectedRadio || selectedRadio.disabled) return alert("Pilih durasi paket yang tersedia terlebih dahulu!");
+      if (!selectedRadio || selectedRadio.disabled) {
+        alert("Pilih durasi paket yang tersedia terlebih dahulu!");
+        return;
+      }
 
       const selectedPkg = selectedRadio.value;
       const selectedHarga = Number(selectedRadio.getAttribute('data-price'));
 
-      if (tg && tg.showPopup) {
-        tg.showPopup({
-          title: "Konfirmasi Pembelian",
-          message: `Beli Phantom (${selectedPkg}) seharga Rp ${selectedHarga.toLocaleString('id-ID')}?`,
-          buttons: [
-            { type: "ok", text: "Beli" },
-            { type: "cancel", text: "Batal" }
-          ]
-        }, (buttonId) => {
-          if (buttonId === 'ok') executePurchase(selectedPkg, selectedHarga);
-        });
-      } else {
-        if (confirm(`Beli Phantom (${selectedPkg}) seharga Rp ${selectedHarga.toLocaleString('id-ID')}?`)) {
-          executePurchase(selectedPkg, selectedHarga);
-        }
+      if (confirm(`Beli Phantom (${selectedPkg}) seharga Rp ${selectedHarga.toLocaleString('id-ID')}?`)) {
+        executePurchase(selectedPkg, selectedHarga);
       }
     }
 
@@ -481,7 +468,8 @@
       }
 
       try {
-        const res = await fetch(`${SCRIPT_URL}?action=buyKey&id=${telegramId}&paket=${encodeURIComponent(paket)}&harga=${harga}`);
+        const targetUrl = `${SCRIPT_URL}?action=buyKey&id=${telegramId}&paket=${encodeURIComponent(paket)}&harga=${harga}`;
+        const res = await fetch(targetUrl);
         const result = await res.json();
 
         if (result.status === "success") {
@@ -491,14 +479,9 @@
 
           saveOrderToHistory(paket, result.key);
 
-          if (tg && tg.showAlert) {
-            tg.showAlert(`BERHASIL! Key Anda: ${result.key}`);
-          } else {
-            alert(`BERHASIL! Key Anda: ${result.key}`);
-          }
+          alert(`BERHASIL! Key Anda:\n${result.key}`);
         } else {
-          if (tg && tg.showAlert) tg.showAlert("Gagal: " + result.message);
-          else alert("Gagal: " + result.message);
+          alert("Gagal: " + result.message);
         }
       } catch (err) {
         console.error(err);
