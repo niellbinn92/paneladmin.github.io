@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Niellstoree Store</title>
+  <title>Niellstore Mini App</title>
   <!-- Telegram Web App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <!-- Tailwind CSS & FontAwesome Icons -->
@@ -38,17 +38,17 @@
 </head>
 <body class="bg-darkBg min-h-screen text-slate-200 pb-24">
 
-  <!-- LOADING SCREEN -->
+  <!-- 1. LOADING SCREEN -->
   <div id="loadingScreen" class="fixed inset-0 bg-darkBg z-50 flex flex-col items-center justify-center transition-opacity duration-500">
     <div class="relative w-16 h-16 border-4 border-slate-700 border-t-accentGold rounded-full animate-spin mb-6"></div>
-    <p class="text-sm tracking-wider font-semibold text-slate-300">MEMUAT APLIKASI</p>
+    <p class="text-sm tracking-wider font-semibold text-slate-300">MEMUAT SISTEM</p>
     <p id="loadingProgress" class="text-xs text-slate-500 mt-2">MENGAMBIL DATA... 0%</p>
   </div>
 
   <!-- MAIN APP CONTAINER -->
   <div id="appContainer" class="hidden max-w-md mx-auto px-4 pt-4">
 
-    <!-- USER PROFILE HEADER -->
+    <!-- 2. USER PROFILE HEADER -->
     <div class="bg-cardBg border border-borderBg rounded-2xl p-3 flex items-center justify-between mb-4 shadow-lg">
       <div class="flex items-center space-x-3">
         <img id="userAvatar" src="https://via.placeholder.com/45" class="w-11 h-11 rounded-full border border-slate-600 object-cover" alt="User Avatar">
@@ -61,12 +61,14 @@
       </div>
       <div class="text-right">
         <p class="text-[10px] text-slate-400 uppercase font-semibold">Saldo</p>
-        <p id="userBalance" class="text-sm font-extrabold text-accentGold">Memuat...</p>
+        <p id="userBalance" class="text-sm font-extrabold text-accentGold">Rp 0</p>
       </div>
     </div>
 
     <!-- TAB 1: BELI KEY -->
     <div id="tabBeliKey" class="tab-content space-y-4">
+      
+      <!-- HERO BANNER -->
       <div class="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-4 flex items-center space-x-3">
         <i class="fa-solid fa-key text-accentGold text-2xl"></i>
         <div>
@@ -75,6 +77,7 @@
         </div>
       </div>
 
+      <!-- KATEGORI GAME -->
       <div>
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Pilih Game</p>
         <div class="grid grid-cols-1 gap-2">
@@ -91,6 +94,7 @@
         </div>
       </div>
 
+      <!-- PRODUK PHANTOM (MUNCUL SETELAH GAME DIPILIH) -->
       <div id="sectionProduct" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Pilih Produk</p>
         <div onclick="selectProduct()" id="cardProductPhantom" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between cursor-pointer transition">
@@ -98,92 +102,93 @@
             <i class="fa-solid fa-ghost text-slate-300 text-lg"></i>
             <div>
               <p class="text-xs font-bold text-white">PHANTOM MOD</p>
-              <span id="badgeStok" class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">MEMUAT STOK...</span>
+              <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">READY STOCK</span>
             </div>
           </div>
           <i id="checkProdIcon" class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
         </div>
       </div>
 
+      <!-- PILIHAN DURASI (MUNCUL SETELAH PRODUK DIPILIH) -->
       <div id="sectionDuration" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">3. Pilih Durasi Paket</p>
         <div class="space-y-2">
-          
-          <label id="label-6-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="6 Jam" data-price="10000" class="accent-amber-500">
+              <input type="radio" name="package" value="6 Jam" data-price="10000" checked class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 6 JAM</p>
-                <p id="info-6-Jam" class="text-[10px] text-slate-400">Memuat...</p>
+                <p class="text-[11px] text-slate-400">Akses Cepat 6 Jam</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 10.000</span>
           </label>
 
-          <label id="label-12-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="12 Jam" data-price="15000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 12 JAM</p>
-                <p id="info-12-Jam" class="text-[10px] text-slate-400">Memuat...</p>
+                <p class="text-[11px] text-slate-400">Akses Aktif 12 Jam</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 15.000</span>
           </label>
 
-          <label id="label-1-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="1 Day" data-price="17000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 1 DAY</p>
-                <p id="info-1-Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p class="text-[11px] text-slate-400">Lisensi Aktif 24 Jam</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 17.000</span>
           </label>
 
-          <label id="label-3-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="3 Day" data-price="35000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 3 DAY</p>
-                <p id="info-3-Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p class="text-[11px] text-slate-400">Lisensi Aktif 3 Hari</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
 
-          <label id="label-7-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="7 Day" data-price="55000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 7 DAY</p>
-                <p id="info-7-Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p class="text-[11px] text-slate-400">Lisensi Aktif 7 Hari</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 55.000</span>
           </label>
 
-          <label id="label-30-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="30 Day" data-price="130000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 30 DAY</p>
-                <p id="info-30-Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p class="text-[11px] text-slate-400">Lisensi Bulanan (Hemat)</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 130.000</span>
           </label>
-
         </div>
 
+        <!-- TOMBOL BELI -->
         <button onclick="buyProduct()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm transition tracking-wider shadow-lg shadow-amber-500/10 mt-4">
           BELI SEKARANG
         </button>
       </div>
+
     </div>
 
-    <!-- TAB 2: ORDER -->
+    <!-- TAB 2: PURCHASE ORDER (RIWAYAT PEMBELIAN) -->
     <div id="tabOrders" class="tab-content hidden space-y-4">
       <div class="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-4 flex items-center space-x-3">
         <i class="fa-solid fa-receipt text-accentGold text-2xl"></i>
@@ -202,12 +207,17 @@
       </div>
     </div>
 
-    <!-- TAB 3: TOP UP -->
+    <!-- TAB 3: TOP UP SALDO (MANUAL DENGAN INFO MINIMAL 15.000) -->
     <div id="tabTopUp" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 text-center space-y-3">
-        <i class="fa-solid fa-wallet text-amber-500 text-3xl mb-1"></i>
-        <h3 class="text-sm font-bold text-white">TOP UP SALDO MANUAL</h3>
-        <p class="text-xs text-slate-400">Silakan hubungi Admin untuk melakukan deposit saldo via QRIS, E-Wallet, atau Transfer Bank.</p>
+        <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/30 rounded-2xl mx-auto flex items-center justify-center">
+          <i class="fa-solid fa-wallet text-amber-500 text-xl"></i>
+        </div>
+        <h3 class="text-sm font-bold text-white tracking-wide">TOP UP SALDO MANUAL</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Silakan hubungi Admin untuk melakukan deposit saldo via QRIS, E-Wallet, atau Transfer Bank.<br>
+          <span class="text-amber-400 font-semibold mt-1 inline-block">⚡ Minimal Deposit: Rp 15.000</span>
+        </p>
         
         <div class="bg-darkBg p-3 rounded-xl border border-borderBg text-left space-y-2">
           <p class="text-[11px] text-slate-400">Sebutkan ID Telegram Anda saat deposit:</p>
@@ -217,45 +227,18 @@
           </div>
         </div>
 
-        <div class="space-y-2 pt-2">
-          <a href="https://t.me/Niellstorez" target="_blank" class="block w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-xl text-xs transition text-center shadow-lg">
-            <i class="fa-brands fa-telegram mr-1.5 text-base"></i> HUBUNGI VIA TELEGRAM
-          </a>
-          <a href="https://wa.me/6285194336082?text=Halo%20Admin,%20saya%20mau%20top%20up%20saldo%20store." target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition text-center shadow-lg">
-            <i class="fa-brands fa-whatsapp mr-1.5 text-base"></i> HUBUNGI VIA WHATSAPP
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 4: RANKING -->
-    <div id="tabLeaderboard" class="tab-content hidden space-y-4">
-      <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
-        <div class="flex items-center space-x-2">
-          <i class="fa-solid fa-coins text-accentGold text-lg"></i>
-          <div>
-            <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">LEADERBOARD</h3>
-            <p class="text-[10px] text-slate-400">Top depositor / pembeli terbanyak</p>
-          </div>
-        </div>
-
         <div class="space-y-2 pt-1">
-          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-7 h-7 rounded-full bg-amber-500 text-black font-extrabold flex items-center justify-center text-xs">1</div>
-              <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-xs border border-amber-500/30">NS</div>
-              <div>
-                <p class="text-xs font-bold text-white">Niellstorez</p>
-                <p class="text-[10px] text-slate-400">@Niellstorez · ID: 8251671543</p>
-              </div>
-            </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 1.200.000</span>
-          </div>
+          <a href="https://t.me/Niellstorez" target="_blank" class="flex items-center justify-center w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg">
+            <i class="fa-brands fa-telegram mr-2 text-base"></i> HUBUNGI VIA TELEGRAM
+          </a>
+          <a href="https://wa.me/62895603099950" target="_blank" class="flex items-center justify-center w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg">
+            <i class="fa-brands fa-whatsapp mr-2 text-base"></i> HUBUNGI VIA WHATSAPP
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- TAB 5: PROFIL -->
+    <!-- TAB 4: ACCOUNT OVERVIEW & PROFIL -->
     <div id="tabProfile" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
         <h3 class="text-xs font-bold text-slate-400 uppercase">Account Overview</h3>
@@ -269,7 +252,7 @@
         </div>
         <div class="flex justify-between text-xs py-1.5 border-b border-slate-800">
           <span class="text-slate-400">Total Saldo</span>
-          <span id="profBalance" class="font-bold text-amber-400">Memuat...</span>
+          <span id="profBalance" class="font-bold text-amber-400">Rp 0</span>
         </div>
         <div class="flex justify-between text-xs py-1.5">
           <span class="text-slate-400">Status Akun</span>
@@ -280,34 +263,28 @@
 
   </div>
 
-  <!-- BOTTOM NAVIGATION BAR -->
+  <!-- 3. BOTTOM NAVIGATION BAR -->
   <div class="fixed bottom-0 left-0 right-0 bg-cardBg border-t border-borderBg max-w-md mx-auto flex justify-around py-2.5 z-40">
     <button onclick="switchTab('tabBeliKey', this)" class="nav-btn flex flex-col items-center text-amber-500">
       <i class="fa-solid fa-key text-base"></i>
-      <span class="text-[9px] font-bold mt-1">BELI KEY</span>
+      <span class="text-[10px] font-bold mt-1">BELI KEY</span>
     </button>
     <button onclick="switchTab('tabOrders', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-receipt text-base"></i>
-      <span class="text-[9px] font-bold mt-1">ORDER</span>
+      <span class="text-[10px] font-bold mt-1">ORDER</span>
     </button>
     <button onclick="switchTab('tabTopUp', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-wallet text-base"></i>
-      <span class="text-[9px] font-bold mt-1">TOP UP</span>
-    </button>
-    <button onclick="switchTab('tabLeaderboard', this)" class="nav-btn flex flex-col items-center text-slate-400">
-      <i class="fa-solid fa-trophy text-base"></i>
-      <span class="text-[9px] font-bold mt-1">RANKING</span>
+      <span class="text-[10px] font-bold mt-1">TOP UP</span>
     </button>
     <button onclick="switchTab('tabProfile', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-user text-base"></i>
-      <span class="text-[9px] font-bold mt-1">PROFIL</span>
+      <span class="text-[10px] font-bold mt-1">PROFIL</span>
     </button>
   </div>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIDVxdxE9VHha4wS9_Sx4PBqvuNaj66vFV6bqXwMDJCeKDaaMgN402LYzbGqyM00ih5w/exec";
-
     const tg = window.Telegram ? window.Telegram.WebApp : null;
 
     if (tg) {
@@ -315,115 +292,45 @@
       tg.expand();
     }
 
-    window.addEventListener('DOMContentLoaded', async () => {
-      let currentPercent = 0;
-      const progressElem = document.getElementById('loadingProgress');
-      
-      let telegramId = "8251671543";
-      let fullName = "Niellstorez";
-      let userPhoto = "https://via.placeholder.com/45";
+    // SIMULASI SALDO USER (Bisa disesuaikan nanti dengan database backend/Sheets)
+    let userCurrentBalance = 0; 
 
+    // SIMULASI LOADING SCREEN
+    window.addEventListener('DOMContentLoaded', () => {
+      let progress = 0;
+      const progressElem = document.getElementById('loadingProgress');
+      const interval = setInterval(() => {
+        progress += 25;
+        progressElem.innerText = `MEMUAT DATA... ${progress}%`;
+        if (progress >= 100) {
+          clearInterval(interval);
+          document.getElementById('loadingScreen').classList.add('opacity-0');
+          setTimeout(() => {
+            document.getElementById('loadingScreen').style.display = 'none';
+            document.getElementById('appContainer').classList.remove('hidden');
+          }, 500);
+        }
+      }, 200);
+
+      // INTEGRASI AKUN TELEGRAM REAL
       if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
-        telegramId = user.id;
-        fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username || "Pengguna";
-        if (user.photo_url) userPhoto = user.photo_url;
-      }
-
-      document.getElementById('userName').innerText = fullName;
-      document.getElementById('profName').innerText = fullName;
-      document.getElementById('userId').innerText = `ID: ${telegramId}`;
-      document.getElementById('profId').innerText = telegramId;
-      document.getElementById('depositUserId').innerText = `ID: ${telegramId}`;
-      document.getElementById('userAvatar').src = userPhoto;
-
-      let fetchedSaldo = "Rp 0";
-
-      try {
-        const res = await fetch(`${SCRIPT_URL}?action=getAppData&id=${telegramId}`);
-        const result = await res.json();
-        if (result.status === "success") {
-          fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
-
-          let totalStokAll = 0;
-          const stokMap = result.stok;
-
-          for (let durasi in stokMap) {
-            let count = stokMap[durasi];
-            totalStokAll += count;
-
-            let safeId = durasi.replace(/\s+/g, '-');
-            let infoElem = document.getElementById("info-" + safeId);
-            let labelElem = document.getElementById("label-" + safeId);
-            let radioElem = labelElem ? labelElem.querySelector('input[type="radio"]') : null;
-
-            if (infoElem && labelElem && radioElem) {
-              if (count > 0) {
-                infoElem.innerText = `Sisa Stok: ${count}`;
-                infoElem.className = "text-[10px] text-emerald-400 font-semibold";
-                radioElem.disabled = false;
-                labelElem.style.opacity = "1";
-                labelElem.style.pointerEvents = "auto";
-              } else {
-                infoElem.innerText = "Stok Habis";
-                infoElem.className = "text-[10px] text-red-400 font-semibold";
-                radioElem.disabled = true;
-                labelElem.style.opacity = "0.4";
-                labelElem.style.pointerEvents = "none";
-              }
-            }
-          }
-
-          const allRadios = document.querySelectorAll('input[name="package"]');
-          let firstActive = Array.from(allRadios).find(r => !r.disabled);
-          if (firstActive) firstActive.checked = true;
-
-          const badgeStok = document.getElementById('badgeStok');
-          if (totalStokAll > 0) {
-            badgeStok.innerText = `SISA STOK: ${totalStokAll}`;
-            badgeStok.className = "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold";
-          } else {
-            badgeStok.innerText = "STOK HABIS";
-            badgeStok.className = "text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded font-bold";
-          }
-
-          // Render Riwayat Order dari Sheet3 secara permanen
-          if (result.orders && result.orders.length > 0) {
-            const container = document.getElementById('orderListContainer');
-            container.innerHTML = '';
-            result.orders.forEach(ord => {
-              saveOrderToHistory(ord.paket, ord.key, ord.tanggal);
-            });
-          }
-        }
-      } catch (err) {
-        console.error("Gagal ambil data:", err);
-        fetchedSaldo = "Rp 0";
-      }
-
-      const loadingInterval = setInterval(() => {
-        currentPercent += 10;
-        if (currentPercent > 100) currentPercent = 100;
+        const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username || "Pengguna";
         
-        progressElem.innerText = `MENGAMBIL DATA... ${currentPercent}%`;
+        document.getElementById('userName').innerText = fullName;
+        document.getElementById('profName').innerText = fullName;
+        
+        document.getElementById('userId').innerText = `ID: ${user.id}`;
+        document.getElementById('profId').innerText = user.id;
+        document.getElementById('depositUserId').innerText = `ID: ${user.id}`;
 
-        if (currentPercent === 100) {
-          clearInterval(loadingInterval);
-          
-          document.getElementById('userBalance').innerText = fetchedSaldo;
-          document.getElementById('profBalance').innerText = fetchedSaldo;
-
-          setTimeout(() => {
-            document.getElementById('loadingScreen').classList.add('opacity-0');
-            setTimeout(() => {
-              document.getElementById('loadingScreen').style.display = 'none';
-              document.getElementById('appContainer').classList.remove('hidden');
-            }, 400);
-          }, 200);
+        if (user.photo_url) {
+          document.getElementById('userAvatar').src = user.photo_url;
         }
-      }, 70);
+      }
     });
 
+    // NAVIGASI TAB MENU
     function switchTab(tabId, btnElem) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
       document.getElementById(tabId).classList.remove('hidden');
@@ -436,109 +343,101 @@
       btnElem.classList.add('text-amber-500');
     }
 
+    // ALUR TAMPILAN DINAMIS (PILIH GAME -> MUNCUL PRODUK)
     function selectGame() {
       const cardGame = document.getElementById('cardGameFF');
       cardGame.classList.toggle('border-amber-500');
-      document.getElementById('sectionProduct').classList.toggle('hidden');
+      
+      const secProd = document.getElementById('sectionProduct');
+      secProd.classList.toggle('hidden');
     }
 
+    // ALUR TAMPILAN DINAMIS (PILIH PRODUK -> MUNCUL DURASI)
     function selectProduct() {
       const cardProd = document.getElementById('cardProductPhantom');
       cardProd.classList.toggle('border-amber-500');
-      document.getElementById('sectionDuration').classList.toggle('hidden');
+      
+      const secDur = document.getElementById('sectionDuration');
+      secDur.classList.toggle('hidden');
     }
 
+    // SALIN ID TELEGRAM
     function copyID() {
       const idText = document.getElementById('profId').innerText;
       navigator.clipboard.writeText(idText);
-      alert("ID Telegram berhasil disalin!");
+      if (tg && tg.showAlert) {
+        tg.showAlert("ID Telegram berhasil disalin!");
+      } else {
+        alert("ID Telegram berhasil disalin!");
+      }
     }
 
-    window.buyProduct = async function() {
+    // PROSES BELI & CEK SALDO (DENGAN PESAN BARU)
+    window.buyProduct = function() {
       const selectedRadio = document.querySelector('input[name="package"]:checked');
-      if (!selectedRadio || selectedRadio.disabled) {
-        alert("Pilih durasi paket yang tersedia terlebih dahulu!");
+      if (!selectedRadio) return;
+
+      const packageName = selectedRadio.value;
+      const packagePrice = parseInt(selectedRadio.getAttribute('data-price'));
+
+      // Validasi Saldo
+      if (userCurrentBalance < packagePrice) {
+        const warningMsg = "Saldo mu tidak cukup bro";
+        if (tg && tg.showAlert) {
+          tg.showAlert(warningMsg);
+        } else {
+          alert(warningMsg);
+        }
         return;
       }
 
-      const selectedPkg = selectedRadio.value;
-      const selectedHarga = Number(selectedRadio.getAttribute('data-price'));
-
-      if (confirm(`Beli Phantom (${selectedPkg}) seharga Rp ${selectedHarga.toLocaleString('id-ID')}?`)) {
-        executePurchase(selectedPkg, selectedHarga);
-      }
-    }
-
-    async function executePurchase(paket, harga) {
-      let telegramId = "8251671543";
-      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        telegramId = tg.initDataUnsafe.user.id;
-      }
-
-      try {
-        const targetUrl = `${SCRIPT_URL}?action=buyKey&id=${telegramId}&paket=${encodeURIComponent(paket)}&harga=${harga}`;
-        const res = await fetch(targetUrl);
-        const result = await res.json();
-
-        if (result.status === "success") {
-          let formattedSisa = "Rp " + Number(result.sisaSaldo).toLocaleString('id-ID');
-          document.getElementById('userBalance').innerText = formattedSisa;
-          document.getElementById('profBalance').innerText = formattedSisa;
-
-          // Tambahkan tanggal hari ini secara instan
-          const now = new Date();
-          const tanggalStr = String(now.getDate()).padStart(2,'0') + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + now.getFullYear() + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-
-          saveOrderToHistory(paket, result.key, tanggalStr);
-
-          alert(`BERHASIL! Key Anda:\n${result.key}`);
-        } else {
-          alert("Gagal: " + result.message);
+      // Jika Saldo Cukup, Lanjutkan Pembelian
+      if (tg && tg.showPopup) {
+        tg.showPopup({
+          title: "Konfirmasi Pembelian",
+          message: `Beli Phantom Free Fire (${packageName}) seharga Rp ${packagePrice.toLocaleString('id-ID')}?`,
+          buttons: [
+            { type: "ok", text: "Beli" },
+            { type: "cancel", text: "Batal" }
+          ]
+        }, (buttonId) => {
+          if (buttonId === 'ok') {
+            processSuccessfulPurchase(packageName, packagePrice);
+          }
+        });
+      } else {
+        if (confirm(`Beli Phantom Free Fire (${packageName})?`)) {
+          processSuccessfulPurchase(packageName, packagePrice);
         }
-      } catch (err) {
-        console.error(err);
-        alert("Terjadi kesalahan jaringan.");
       }
     }
 
-    // Fungsi salin key dengan tombol interaktif
-    function copyKey(keyCode, btnElem) {
-      navigator.clipboard.writeText(keyCode).then(() => {
-        const originalHTML = btnElem.innerHTML;
-        btnElem.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Tersalin!';
-        btnElem.classList.remove('bg-amber-500/20', 'text-amber-400');
-        btnElem.classList.add('bg-emerald-500', 'text-black');
-        
-        setTimeout(() => {
-          btnElem.innerHTML = originalHTML;
-          btnElem.classList.remove('bg-emerald-500', 'text-black');
-          btnElem.classList.add('bg-amber-500/20', 'text-amber-400');
-        }, 2000);
-      }).catch(err => {
-        alert("Gagal menyalin key: " + err);
-      });
-    }
+    function processSuccessfulPurchase(packageName, price) {
+      userCurrentBalance -= price;
+      document.getElementById('userBalance').innerText = `Rp ${userCurrentBalance.toLocaleString('id-ID')}`;
+      document.getElementById('profBalance').innerText = `Rp ${userCurrentBalance.toLocaleString('id-ID')}`;
 
-    function saveOrderToHistory(packageName, keyCode, tanggalStr = "") {
       const container = document.getElementById('orderListContainer');
-      if (container.querySelector('.fa-box-open')) container.innerHTML = '';
+      if (container.querySelector('.fa-box-open')) {
+        container.innerHTML = '';
+      }
 
       const orderCard = document.createElement('div');
-      orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 space-y-2";
+      orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 flex justify-between items-center";
       orderCard.innerHTML = `
-        <div class="flex justify-between items-center">
+        <div>
           <p class="text-xs font-bold text-white">Phantom - ${packageName}</p>
-          <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded">SUCCESS</span>
+          <p class="text-[10px] text-slate-400">Status: <span class="text-emerald-400 font-bold">SUCCESS (Key Ready)</span></p>
         </div>
-        ${tanggalStr ? `<p class="text-[10px] text-slate-400">${tanggalStr}</p>` : ''}
-        <div class="flex items-center justify-between bg-darkBg p-2.5 rounded border border-borderBg">
-          <span class="text-[11px] text-amber-400 font-mono tracking-wide truncate mr-2">Key: <b>${keyCode}</b></span>
-          <button onclick="copyKey('${keyCode}', this)" class="text-[10px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold px-2.5 py-1 rounded transition shrink-0">
-            <i class="fa-regular fa-copy mr-1"></i> Salin
-          </button>
-        </div>
+        <span class="text-[10px] bg-amber-500/20 text-amber-400 font-bold px-2 py-1 rounded">DETAIL</span>
       `;
       container.prepend(orderCard);
+
+      if (tg && tg.showAlert) {
+        tg.showAlert("Pembelian berhasil! Cek menu Order.");
+      } else {
+        alert("Pembelian berhasil!");
+      }
     }
   </script>
 </body>
