@@ -109,7 +109,6 @@
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">3. Pilih Durasi Paket</p>
         <div class="space-y-2">
           
-          <!-- 6 Jam -->
           <label id="label-6-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="6 Jam" data-price="10000" class="accent-amber-500">
@@ -121,7 +120,6 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 10.000</span>
           </label>
 
-          <!-- 12 Jam -->
           <label id="label-12-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="12 Jam" data-price="15000" class="accent-amber-500">
@@ -133,7 +131,6 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 15.000</span>
           </label>
 
-          <!-- 1 Day -->
           <label id="label-1-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="1 Day" data-price="17000" class="accent-amber-500">
@@ -145,7 +142,6 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 17.000</span>
           </label>
 
-          <!-- 3 Day -->
           <label id="label-3-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="3 Day" data-price="35000" class="accent-amber-500">
@@ -157,7 +153,6 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
 
-          <!-- 7 Day -->
           <label id="label-7-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="7 Day" data-price="55000" class="accent-amber-500">
@@ -169,7 +164,6 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 55.000</span>
           </label>
 
-          <!-- 30 Day -->
           <label id="label-30-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="30 Day" data-price="130000" class="accent-amber-500">
@@ -352,13 +346,12 @@
           fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
 
           let totalStokAll = 0;
-          const stokMap = result.stok; // { "6 Jam": x, "12 Jam": y, ... }
+          const stokMap = result.stok;
 
           for (let durasi in stokMap) {
             let count = stokMap[durasi];
             totalStokAll += count;
 
-            // Format id HTML yang aman dari spasi (mis: "1 Day" jadi "1-Day")
             let safeId = durasi.replace(/\s+/g, '-');
             let infoElem = document.getElementById("info-" + safeId);
             let labelElem = document.getElementById("label-" + safeId);
