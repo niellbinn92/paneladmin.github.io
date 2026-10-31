@@ -134,48 +134,48 @@
           </label>
 
           <!-- 1 Day -->
-          <label id="label-1 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-1-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="1 Day" data-price="17000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 1 DAY</p>
-                <p id="info-1 Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p id="info-1-Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 17.000</span>
           </label>
 
           <!-- 3 Day -->
-          <label id="label-3 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-3-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="3 Day" data-price="35000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 3 DAY</p>
-                <p id="info-3 Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p id="info-3-Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
 
           <!-- 7 Day -->
-          <label id="label-7 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-7-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="7 Day" data-price="55000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 7 DAY</p>
-                <p id="info-7 Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p id="info-7-Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 55.000</span>
           </label>
 
           <!-- 30 Day -->
-          <label id="label-30 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-30-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="30 Day" data-price="130000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 30 DAY</p>
-                <p id="info-30 Day" class="text-[10px] text-slate-400">Memuat...</p>
+                <p id="info-30-Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 130.000</span>
@@ -345,23 +345,23 @@
 
       let fetchedSaldo = "Rp 0";
 
-      // Ambil data dari Google Sheet (Sheet1 & Sheet2)
       try {
         const res = await fetch(`${SCRIPT_URL}?action=getAppData&id=${telegramId}`);
         const result = await res.json();
         if (result.status === "success") {
           fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
 
-          // Update stok per durasi dan matikan tombol yang habis
           let totalStokAll = 0;
-          const stokMap = result.stok; // { "6 Jam": 1, "12 Jam": 0, ... }
+          const stokMap = result.stok; // { "6 Jam": x, "12 Jam": y, ... }
 
           for (let durasi in stokMap) {
             let count = stokMap[durasi];
             totalStokAll += count;
 
-            let infoElem = document.getElementById("info-" + durasi);
-            let labelElem = document.getElementById("label-" + durasi);
+            // Format id HTML yang aman dari spasi (mis: "1 Day" jadi "1-Day")
+            let safeId = durasi.replace(/\s+/g, '-');
+            let infoElem = document.getElementById("info-" + safeId);
+            let labelElem = document.getElementById("label-" + safeId);
             let radioElem = labelElem ? labelElem.querySelector('input[type="radio"]') : null;
 
             if (infoElem && labelElem && radioElem) {
@@ -376,17 +376,15 @@
                 infoElem.className = "text-[10px] text-red-400 font-semibold";
                 radioElem.disabled = true;
                 labelElem.style.opacity = "0.4";
-                labelElem.style.pointerEvents = "none"; // Tidak bisa dipencet sama sekali
+                labelElem.style.pointerEvents = "none";
               }
             }
           }
 
-          // Otomatis pilih radio pertama yang aktif jika ada yang habis
           const allRadios = document.querySelectorAll('input[name="package"]');
           let firstActive = Array.from(allRadios).find(r => !r.disabled);
           if (firstActive) firstActive.checked = true;
 
-          // Update Badge Utama Produk
           const badgeStok = document.getElementById('badgeStok');
           if (totalStokAll > 0) {
             badgeStok.innerText = `SISA STOK: ${totalStokAll}`;
@@ -401,7 +399,6 @@
         fetchedSaldo = "Rp 0";
       }
 
-      // Animasi loading halus 0-100%
       const loadingInterval = setInterval(() => {
         currentPercent += 10;
         if (currentPercent > 100) currentPercent = 100;
@@ -459,7 +456,6 @@
       }
     }
 
-    // PROSES BELI OTOMATIS: POTONG SALDO & AMBIL KEY SESUAI DURASI
     window.buyProduct = async function() {
       const selectedRadio = document.querySelector('input[name="package"]:checked');
       if (!selectedRadio || selectedRadio.disabled) return alert("Pilih durasi paket yang tersedia terlebih dahulu!");
@@ -496,12 +492,10 @@
         const result = await res.json();
 
         if (result.status === "success") {
-          // Update saldo di layar
           let formattedSisa = "Rp " + Number(result.sisaSaldo).toLocaleString('id-ID');
           document.getElementById('userBalance').innerText = formattedSisa;
           document.getElementById('profBalance').innerText = formattedSisa;
 
-          // Masukkan ke riwayat order beserta Key asli dari Sheet2
           saveOrderToHistory(paket, result.key);
 
           if (tg && tg.showAlert) {
