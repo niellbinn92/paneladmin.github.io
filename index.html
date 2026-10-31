@@ -38,7 +38,7 @@
 </head>
 <body class="bg-darkBg min-h-screen text-slate-200 pb-24">
 
-  <!-- LOADING SCREEN (0-100%) -->
+  <!-- LOADING SCREEN -->
   <div id="loadingScreen" class="fixed inset-0 bg-darkBg z-50 flex flex-col items-center justify-center transition-opacity duration-500">
     <div class="relative w-16 h-16 border-4 border-slate-700 border-t-accentGold rounded-full animate-spin mb-6"></div>
     <p class="text-sm tracking-wider font-semibold text-slate-300">MEMUAT APLIKASI</p>
@@ -109,67 +109,73 @@
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">3. Pilih Durasi Paket</p>
         <div class="space-y-2">
           
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+          <!-- 6 Jam -->
+          <label id="label-6-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="6 Jam" data-price="10000" checked class="accent-amber-500">
+              <input type="radio" name="package" value="6 Jam" data-price="10000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 6 JAM</p>
-                <p class="text-[11px] text-slate-400">Akses Cepat 6 Jam</p>
+                <p id="info-6-Jam" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 10.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+          <!-- 12 Jam -->
+          <label id="label-12-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="12 Jam" data-price="15000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 12 JAM</p>
-                <p class="text-[11px] text-slate-400">Akses Aktif 12 Jam</p>
+                <p id="info-12-Jam" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 15.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+          <!-- 1 Day -->
+          <label id="label-1 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="1 Day" data-price="17000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 1 DAY</p>
-                <p class="text-[11px] text-slate-400">Lisensi Aktif 24 Jam</p>
+                <p id="info-1 Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 17.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+          <!-- 3 Day -->
+          <label id="label-3 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="3 Day" data-price="35000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 3 DAY</p>
-                <p class="text-[11px] text-slate-400">Lisensi Aktif 3 Hari</p>
+                <p id="info-3 Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+          <!-- 7 Day -->
+          <label id="label-7 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="7 Day" data-price="55000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 7 DAY</p>
-                <p class="text-[11px] text-slate-400">Lisensi Aktif 7 Hari</p>
+                <p id="info-7 Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 55.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50">
+          <!-- 30 Day -->
+          <label id="label-30 Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="30 Day" data-price="130000" class="accent-amber-500">
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM - 30 DAY</p>
-                <p class="text-[11px] text-slate-400">Lisensi Bulanan (Hemat)</p>
+                <p id="info-30 Day" class="text-[10px] text-slate-400">Memuat...</p>
               </div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 130.000</span>
@@ -183,7 +189,7 @@
       </div>
     </div>
 
-    <!-- TAB 2: PURCHASE ORDER -->
+    <!-- TAB 2: ORDER -->
     <div id="tabOrders" class="tab-content hidden space-y-4">
       <div class="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-4 flex items-center space-x-3">
         <i class="fa-solid fa-receipt text-accentGold text-2xl"></i>
@@ -202,7 +208,7 @@
       </div>
     </div>
 
-    <!-- TAB 3: TOP UP SALDO -->
+    <!-- TAB 3: TOP UP -->
     <div id="tabTopUp" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 text-center space-y-3">
         <i class="fa-solid fa-wallet text-amber-500 text-3xl mb-1"></i>
@@ -228,7 +234,7 @@
       </div>
     </div>
 
-    <!-- TAB 4: LEADERBOARD -->
+    <!-- TAB 4: RANKING -->
     <div id="tabLeaderboard" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
         <div class="flex items-center space-x-2">
@@ -346,10 +352,44 @@
         if (result.status === "success") {
           fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
 
-          // Tampilkan sisa stok total di badge produk
+          // Update stok per durasi dan matikan tombol yang habis
+          let totalStokAll = 0;
+          const stokMap = result.stok; // { "6 Jam": 1, "12 Jam": 0, ... }
+
+          for (let durasi in stokMap) {
+            let count = stokMap[durasi];
+            totalStokAll += count;
+
+            let infoElem = document.getElementById("info-" + durasi);
+            let labelElem = document.getElementById("label-" + durasi);
+            let radioElem = labelElem ? labelElem.querySelector('input[type="radio"]') : null;
+
+            if (infoElem && labelElem && radioElem) {
+              if (count > 0) {
+                infoElem.innerText = `Sisa Stok: ${count}`;
+                infoElem.className = "text-[10px] text-emerald-400 font-semibold";
+                radioElem.disabled = false;
+                labelElem.style.opacity = "1";
+                labelElem.style.pointerEvents = "auto";
+              } else {
+                infoElem.innerText = "Stok Habis";
+                infoElem.className = "text-[10px] text-red-400 font-semibold";
+                radioElem.disabled = true;
+                labelElem.style.opacity = "0.4";
+                labelElem.style.pointerEvents = "none"; // Tidak bisa dipencet sama sekali
+              }
+            }
+          }
+
+          // Otomatis pilih radio pertama yang aktif jika ada yang habis
+          const allRadios = document.querySelectorAll('input[name="package"]');
+          let firstActive = Array.from(allRadios).find(r => !r.disabled);
+          if (firstActive) firstActive.checked = true;
+
+          // Update Badge Utama Produk
           const badgeStok = document.getElementById('badgeStok');
-          if (result.stokTotal > 0) {
-            badgeStok.innerText = `SISA STOK: ${result.stokTotal}`;
+          if (totalStokAll > 0) {
+            badgeStok.innerText = `SISA STOK: ${totalStokAll}`;
             badgeStok.className = "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold";
           } else {
             badgeStok.innerText = "STOK HABIS";
@@ -419,10 +459,10 @@
       }
     }
 
-    // PROSES BELI OTOMATIS: POTONG SALDO & AMBIL KEY DARI SHEET2
+    // PROSES BELI OTOMATIS: POTONG SALDO & AMBIL KEY SESUAI DURASI
     window.buyProduct = async function() {
       const selectedRadio = document.querySelector('input[name="package"]:checked');
-      if (!selectedRadio) return alert("Pilih durasi paket terlebih dahulu!");
+      if (!selectedRadio || selectedRadio.disabled) return alert("Pilih durasi paket yang tersedia terlebih dahulu!");
 
       const selectedPkg = selectedRadio.value;
       const selectedHarga = Number(selectedRadio.getAttribute('data-price'));
@@ -452,7 +492,7 @@
       }
 
       try {
-        const res = await fetch(`${SCRIPT_URL}?action=buyKey&id=${telegramId}&harga=${harga}`);
+        const res = await fetch(`${SCRIPT_URL}?action=buyKey&id=${telegramId}&paket=${encodeURIComponent(paket)}&harga=${harga}`);
         const result = await res.json();
 
         if (result.status === "success") {
