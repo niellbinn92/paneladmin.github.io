@@ -386,6 +386,15 @@
             badgeStok.innerText = "STOK HABIS";
             badgeStok.className = "text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded font-bold";
           }
+
+          // Render Riwayat Order dari Sheet3 secara permanen
+          if (result.orders && result.orders.length > 0) {
+            const container = document.getElementById('orderListContainer');
+            container.innerHTML = '';
+            result.orders.forEach(ord => {
+              saveOrderToHistory(ord.paket, ord.key, ord.tanggal);
+            });
+          }
         }
       } catch (err) {
         console.error("Gagal ambil data:", err);
@@ -445,7 +454,6 @@
       alert("ID Telegram berhasil disalin!");
     }
 
-    // FUNGSI BELI YANG UNIVERSAL & RESPONSIF
     window.buyProduct = async function() {
       const selectedRadio = document.querySelector('input[name="package"]:checked');
       if (!selectedRadio || selectedRadio.disabled) {
@@ -477,7 +485,11 @@
           document.getElementById('userBalance').innerText = formattedSisa;
           document.getElementById('profBalance').innerText = formattedSisa;
 
-          saveOrderToHistory(paket, result.key);
+          // Tambahkan tanggal hari ini secara instan
+          const now = new Date();
+          const tanggalStr = String(now.getDate()).padStart(2,'0') + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + now.getFullYear() + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+          saveOrderToHistory(paket, result.key, tanggalStr);
 
           alert(`BERHASIL! Key Anda:\n${result.key}`);
         } else {
@@ -489,18 +501,42 @@
       }
     }
 
-    function saveOrderToHistory(packageName, keyCode) {
+    // Fungsi salin key dengan tombol interaktif
+    function copyKey(keyCode, btnElem) {
+      navigator.clipboard.writeText(keyCode).then(() => {
+        const originalHTML = btnElem.innerHTML;
+        btnElem.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Tersalin!';
+        btnElem.classList.remove('bg-amber-500/20', 'text-amber-400');
+        btnElem.classList.add('bg-emerald-500', 'text-black');
+        
+        setTimeout(() => {
+          btnElem.innerHTML = originalHTML;
+          btnElem.classList.remove('bg-emerald-500', 'text-black');
+          btnElem.classList.add('bg-amber-500/20', 'text-amber-400');
+        }, 2000);
+      }).catch(err => {
+        alert("Gagal menyalin key: " + err);
+      });
+    }
+
+    function saveOrderToHistory(packageName, keyCode, tanggalStr = "") {
       const container = document.getElementById('orderListContainer');
       if (container.querySelector('.fa-box-open')) container.innerHTML = '';
 
       const orderCard = document.createElement('div');
-      orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 space-y-1";
+      orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 space-y-2";
       orderCard.innerHTML = `
         <div class="flex justify-between items-center">
           <p class="text-xs font-bold text-white">Phantom - ${packageName}</p>
           <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded">SUCCESS</span>
         </div>
-        <p class="text-[11px] text-amber-400 font-mono bg-darkBg p-2 rounded border border-borderBg">Key: <b>${keyCode}</b></p>
+        ${tanggalStr ? `<p class="text-[10px] text-slate-400">${tanggalStr}</p>` : ''}
+        <div class="flex items-center justify-between bg-darkBg p-2.5 rounded border border-borderBg">
+          <span class="text-[11px] text-amber-400 font-mono tracking-wide truncate mr-2">Key: <b>${keyCode}</b></span>
+          <button onclick="copyKey('${keyCode}', this)" class="text-[10px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold px-2.5 py-1 rounded transition shrink-0">
+            <i class="fa-regular fa-copy mr-1"></i> Salin
+          </button>
+        </div>
       `;
       container.prepend(orderCard);
     }
