@@ -128,7 +128,7 @@
               <i class="fa-solid fa-ghost text-amber-500 text-lg"></i>
               <div>
                 <p class="text-xs font-bold text-white">PHANTOM MOD</p>
-                <p class="text-[10px] text-slate-400">Durasi 6 Jam - 30 Hari</p>
+                <p class="text-[10px] text-slate-400">Durasi 3 Jam - 30 Hari</p>
               </div>
             </div>
             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
@@ -148,19 +148,30 @@
         </div>
       </div>
 
-      <!-- SECTION DURASI PHANTOM -->
+      <!-- SECTION DURASI PHANTOM (HARGA BARU) -->
       <div id="sectionPhantomDuration" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-amber-400 uppercase tracking-wider">3. Pilih Durasi - Phantom Mod</p>
         <div class="space-y-2">
           
+          <!-- 3 Jam -->
+          <label id="label-Phantom-3-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="Phantom - 3 Jam" data-price="4000" class="accent-amber-500" checked>
+              <div><p class="text-xs font-bold text-white">3 JAM</p><p id="info-Phantom-3-Jam" class="text-[10px] text-slate-400">Memuat stok...</p></div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 4.000</span>
+          </label>
+
+          <!-- 6 Jam -->
           <label id="label-Phantom-6-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="Phantom - 6 Jam" data-price="7500" class="accent-amber-500" checked>
+              <input type="radio" name="package" value="Phantom - 6 Jam" data-price="7500" class="accent-amber-500">
               <div><p class="text-xs font-bold text-white">6 JAM</p><p id="info-Phantom-6-Jam" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 7.500</span>
           </label>
 
+          <!-- 12 Jam -->
           <label id="label-Phantom-12-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 12 Jam" data-price="9500" class="accent-amber-500">
@@ -169,14 +180,16 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 9.500</span>
           </label>
 
+          <!-- 1 Day -->
           <label id="label-Phantom-1-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="Phantom - 1 Day" data-price="12000" class="accent-amber-500">
+              <input type="radio" name="package" value="Phantom - 1 Day" data-price="11000" class="accent-amber-500">
               <div><p class="text-xs font-bold text-white">1 DAY</p><p id="info-Phantom-1-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 12.000</span>
+            <span class="text-xs font-extrabold text-accentGold">Rp 11.000</span>
           </label>
 
+          <!-- 3 Day -->
           <label id="label-Phantom-3-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 3 Day" data-price="20000" class="accent-amber-500">
@@ -185,6 +198,7 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 20.000</span>
           </label>
 
+          <!-- 7 Day -->
           <label id="label-Phantom-7-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 7 Day" data-price="35000" class="accent-amber-500">
@@ -193,12 +207,13 @@
             <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
 
+          <!-- 30 Day -->
           <label id="label-Phantom-30-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="Phantom - 30 Day" data-price="60000" class="accent-amber-500">
+              <input type="radio" name="package" value="Phantom - 30 Day" data-price="80000" class="accent-amber-500">
               <div><p class="text-xs font-bold text-white">30 DAY</p><p id="info-Phantom-30-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 60.000</span>
+            <span class="text-xs font-extrabold text-accentGold">Rp 80.000</span>
           </label>
 
         </div>
@@ -434,7 +449,6 @@
         if (result.status === "success") {
           fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
 
-          // MEMBACA DAN MENAMPILKAN STOK ASLI DARI SHEET2
           if (result.stok) {
             const stokMap = result.stok;
             for (let pkgKey in stokMap) {
