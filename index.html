@@ -118,7 +118,7 @@
         </div>
       </div>
 
-      <!-- LANGKAH 2: PILIH PRODUK (MUNCUL SETELAH KLIK FREE FIRE) -->
+      <!-- LANGKAH 2: PILIH PRODUK -->
       <div id="sectionProduct" class="hidden space-y-3 animate-fadeIn">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Pilih Produk Mod</p>
         <div class="grid grid-cols-1 gap-2">
@@ -299,7 +299,7 @@
       </div>
     </div>
 
-    <!-- TAB 4: PROFIL (RANKING DIHAPUS) -->
+    <!-- TAB 4: PROFIL -->
     <div id="tabProfile" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
         <h3 class="text-xs font-bold text-slate-400 uppercase">Account Overview</h3>
@@ -328,7 +328,7 @@
 
   </div>
 
-  <!-- BOTTOM NAVIGATION BAR (RANKING DIHAPUS, TERSISA 4 MENU) -->
+  <!-- BOTTOM NAVIGATION BAR -->
   <div class="fixed bottom-0 left-0 right-0 bg-cardBg border-t border-borderBg max-w-md mx-auto flex justify-around py-2.5 z-40 hidden" id="bottomNav">
     <button onclick="switchTab('tabBeliKey', this)" class="nav-btn flex flex-col items-center text-amber-500">
       <i class="fa-solid fa-key text-base"></i>
@@ -434,7 +434,7 @@
         if (result.status === "success") {
           fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
 
-          // Pengecekan Stok Akurat berdasarkan Sheet2 (Jika belum didaftar/habis, otomatis "Stok Habis")
+          // MEMBACA DAN MENAMPILKAN STOK ASLI DARI SHEET2
           if (result.stok) {
             const stokMap = result.stok;
             for (let pkgKey in stokMap) {
@@ -509,7 +509,6 @@
       btnElem.classList.add('text-amber-500');
     }
 
-    // Alur Klasik: Klik Free Fire dulu -> Muncul Produk
     function selectGame() {
       const cardGame = document.getElementById('cardGameFF');
       cardGame.classList.toggle('border-amber-500');
