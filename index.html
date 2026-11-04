@@ -97,112 +97,90 @@
         <i class="fa-solid fa-key text-accentGold text-2xl"></i>
         <div>
           <h2 class="font-bold text-sm text-white uppercase tracking-wide">BELI KEY & LISENSI</h2>
-          <p class="text-xs text-slate-400">Pilih game untuk melihat produk</p>
+          <p class="text-xs text-slate-400">Pilih produk mod di bawah ini</p>
         </div>
       </div>
 
       <div>
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Pilih Game</p>
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Pilih Produk</p>
         <div class="grid grid-cols-1 gap-2">
-          <button onclick="selectGame()" id="cardGameFF" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between transition text-left">
+          
+          <!-- PRODUK 1: PHANTOM MOD -->
+          <button onclick="selectProductType('Phantom')" id="cardProdPhantom" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between transition text-left">
             <div class="flex items-center space-x-3">
-              <i class="fa-solid fa-fire text-amber-500 text-lg"></i>
+              <i class="fa-solid fa-ghost text-amber-500 text-lg"></i>
               <div>
-                <p class="text-xs font-bold text-white">FREE FIRE</p>
-                <p class="text-[10px] text-slate-400">Tersedia Mod & Cheat Menu</p>
+                <p class="text-xs font-bold text-white">PHANTOM MOD (FREE FIRE)</p>
+                <p class="text-[10px] text-slate-400">Tersedia Durasi 6 Jam - 30 Hari</p>
               </div>
             </div>
-            <i id="checkGameIcon" class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
           </button>
-        </div>
-      </div>
 
-      <div id="sectionProduct" class="hidden space-y-3 animate-fadeIn">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Pilih Produk</p>
-        <div onclick="selectProduct()" id="cardProductPhantom" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between cursor-pointer transition">
-          <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-ghost text-slate-300 text-lg"></i>
-            <div>
-              <p class="text-xs font-bold text-white">PHANTOM MOD</p>
-              <span id="badgeStok" class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">READY STOCK</span>
+          <!-- PRODUK 2: DRIP WIRE -->
+          <button onclick="selectProductType('DripWire')" id="cardProdDripWire" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between transition text-left">
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-bolt text-sky-400 text-lg"></i>
+              <div>
+                <p class="text-xs font-bold text-white">DRIP WIRE (FREE FIRE)</p>
+                <p class="text-[10px] text-slate-400">Tersedia Durasi 6 Jam - 7 Hari</p>
+              </div>
             </div>
-          </div>
-          <i id="checkProdIcon" class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+          </button>
+
         </div>
       </div>
 
-      <div id="sectionDuration" class="hidden space-y-3 animate-fadeIn">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">3. Pilih Durasi Paket</p>
+      <!-- SECTION DURASI UNTUK PHANTOM -->
+      <div id="sectionPhantomDuration" class="hidden space-y-3 animate-fadeIn">
+        <p class="text-xs font-bold text-amber-400 uppercase tracking-wider">Pilih Durasi - Phantom Mod</p>
         <div class="space-y-2">
           
-          <!-- 6 Jam -->
-          <label id="label-6-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="6 Jam" data-price="7500" class="accent-amber-500" checked>
-              <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 6 JAM</p>
-                <p id="info-6-Jam" class="text-[10px] text-emerald-400 font-semibold">Ready Stok</p>
-              </div>
+              <input type="radio" name="package" value="Phantom - 6 Jam" data-price="7500" class="accent-amber-500" checked>
+              <div><p class="text-xs font-bold text-white">6 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 7.500</span>
           </label>
 
-          <!-- 12 Jam -->
-          <label id="label-12-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="12 Jam" data-price="9500" class="accent-amber-500">
-              <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 12 JAM</p>
-                <p id="info-12-Jam" class="text-[10px] text-emerald-400 font-semibold">Ready Stok</p>
-              </div>
+              <input type="radio" name="package" value="Phantom - 12 Jam" data-price="9500" class="accent-amber-500">
+              <div><p class="text-xs font-bold text-white">12 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 9.500</span>
           </label>
 
-          <!-- 1 Day -->
-          <label id="label-1-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="1 Day" data-price="12000" class="accent-amber-500">
-              <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 1 DAY</p>
-                <p id="info-1-Day" class="text-[10px] text-emerald-400 font-semibold">Ready Stok</p>
-              </div>
+              <input type="radio" name="package" value="Phantom - 1 Day" data-price="12000" class="accent-amber-500">
+              <div><p class="text-xs font-bold text-white">1 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
             </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 11.000</span>
+            <span class="text-xs font-extrabold text-accentGold">Rp 12.000</span>
           </label>
 
-          <!-- 3 Day -->
-          <label id="label-3-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="3 Day" data-price="20000" class="accent-amber-500">
-              <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 3 DAY</p>
-                <p id="info-3-Day" class="text-[10px] text-emerald-400 font-semibold">Ready Stok</p>
-              </div>
+              <input type="radio" name="package" value="Phantom - 3 Day" data-price="20000" class="accent-amber-500">
+              <div><p class="text-xs font-bold text-white">3 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 20.000</span>
           </label>
 
-          <!-- 7 Day -->
-          <label id="label-7-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="7 Day" data-price="35000" class="accent-amber-500">
-              <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 7 DAY</p>
-                <p id="info-7-Day" class="text-[10px] text-emerald-400 font-semibold">Ready Stok</p>
-              </div>
+              <input type="radio" name="package" value="Phantom - 7 Day" data-price="35000" class="accent-amber-500">
+              <div><p class="text-xs font-bold text-white">7 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
 
-          <!-- 30 Day -->
-          <label id="label-30-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
-              <input type="radio" name="package" value="30 Day" data-price="60000" class="accent-amber-500">
-              <div>
-                <p class="text-xs font-bold text-white">PHANTOM - 30 DAY</p>
-                <p id="info-30-Day" class="text-[10px] text-emerald-400 font-semibold">Ready Stok</p>
-              </div>
+              <input type="radio" name="package" value="Phantom - 30 Day" data-price="60000" class="accent-amber-500">
+              <div><p class="text-xs font-bold text-white">30 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 60.000</span>
           </label>
@@ -210,9 +188,54 @@
         </div>
 
         <button onclick="buyProduct()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm transition tracking-wider shadow-lg shadow-amber-500/10 mt-4">
-          BELI SEKARANG
+          BELI PHANTOM SEKARANG
         </button>
       </div>
+
+      <!-- SECTION DURASI UNTUK DRIP WIRE (HARGA BARU) -->
+      <div id="sectionDripWireDuration" class="hidden space-y-3 animate-fadeIn">
+        <p class="text-xs font-bold text-sky-400 uppercase tracking-wider">Pilih Durasi - Drip Wire</p>
+        <div class="space-y-2">
+          
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="DripWire - 6 Jam" data-price="3500" class="accent-sky-500">
+              <div><p class="text-xs font-bold text-white">6 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 3.500</span>
+          </label>
+
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="DripWire - 12 Jam" data-price="8000" class="accent-sky-500">
+              <div><p class="text-xs font-bold text-white">12 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 8.000</span>
+          </label>
+
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="DripWire - 1 Day" data-price="12000" class="accent-sky-500">
+              <div><p class="text-xs font-bold text-white">1 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 12.000</span>
+          </label>
+
+          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="package" value="DripWire - 7 Day" data-price="30000" class="accent-sky-500">
+              <div><p class="text-xs font-bold text-white">7 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+            </div>
+            <span class="text-xs font-extrabold text-accentGold">Rp 30.000</span>
+          </label>
+
+        </div>
+
+        <button onclick="buyProduct()" class="w-full bg-sky-500 hover:bg-sky-600 text-black font-extrabold py-3.5 rounded-xl text-sm transition tracking-wider shadow-lg shadow-sky-500/10 mt-4">
+          BELI DRIP WIRE SEKARANG
+        </button>
+      </div>
+
     </div>
 
     <!-- TAB 2: ORDER -->
@@ -229,7 +252,7 @@
         <div class="bg-cardBg border border-borderBg rounded-2xl p-6 text-center space-y-2">
           <i class="fa-solid fa-box-open text-slate-500 text-3xl mb-1"></i>
           <p class="text-xs font-bold text-white">Belum Ada Transaksi</p>
-          <p class="text-[11px] text-slate-400">Setiap pembelian key Phantom Anda akan tercatat otomatis di sini.</p>
+          <p class="text-[11px] text-slate-400">Setiap pembelian key Anda akan tercatat otomatis di sini.</p>
         </div>
       </div>
     </div>
@@ -426,46 +449,6 @@
         if (result.status === "success") {
           fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
 
-          if (result.stok) {
-            let totalStokAll = 0;
-            const stokMap = result.stok;
-
-            for (let durasi in stokMap) {
-              let count = stokMap[durasi];
-              totalStokAll += count;
-
-              let safeId = durasi.replace(/\s+/g, '-');
-              let infoElem = document.getElementById("info-" + safeId);
-              let labelElem = document.getElementById("label-" + safeId);
-              let radioElem = labelElem ? labelElem.querySelector('input[type="radio"]') : null;
-
-              if (infoElem && labelElem && radioElem) {
-                if (count > 0) {
-                  infoElem.innerText = `Sisa Stok: ${count}`;
-                  infoElem.className = "text-[10px] text-emerald-400 font-semibold";
-                  radioElem.disabled = false;
-                  labelElem.style.opacity = "1";
-                  labelElem.style.pointerEvents = "auto";
-                } else {
-                  infoElem.innerText = "Stok Habis";
-                  infoElem.className = "text-[10px] text-red-400 font-semibold";
-                  radioElem.disabled = true;
-                  labelElem.style.opacity = "0.4";
-                  labelElem.style.pointerEvents = "none";
-                }
-              }
-            }
-
-            const badgeStok = document.getElementById('badgeStok');
-            if (totalStokAll > 0) {
-              badgeStok.innerText = `SISA STOK: ${totalStokAll}`;
-              badgeStok.className = "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold";
-            } else {
-              badgeStok.innerText = "STOK HABIS";
-              badgeStok.className = "text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded font-bold";
-            }
-          }
-
           if (result.orders && result.orders.length > 0) {
             const container = document.getElementById('orderListContainer');
             container.innerHTML = '';
@@ -513,16 +496,16 @@
       btnElem.classList.add('text-amber-500');
     }
 
-    function selectGame() {
-      const cardGame = document.getElementById('cardGameFF');
-      cardGame.classList.toggle('border-amber-500');
-      document.getElementById('sectionProduct').classList.toggle('hidden');
-    }
-
-    function selectProduct() {
-      const cardProd = document.getElementById('cardProductPhantom');
-      cardProd.classList.toggle('border-amber-500');
-      document.getElementById('sectionDuration').classList.toggle('hidden');
+    function selectProductType(type) {
+      if (type === 'Phantom') {
+        document.getElementById('cardProdPhantom').classList.toggle('border-amber-500');
+        document.getElementById('sectionPhantomDuration').classList.toggle('hidden');
+        document.getElementById('sectionDripWireDuration').classList.add('hidden');
+      } else if (type === 'DripWire') {
+        document.getElementById('cardProdDripWire').classList.toggle('border-sky-500');
+        document.getElementById('sectionDripWireDuration').classList.toggle('hidden');
+        document.getElementById('sectionPhantomDuration').classList.add('hidden');
+      }
     }
 
     function copyID() {
@@ -534,14 +517,14 @@
     window.buyProduct = async function() {
       const selectedRadio = document.querySelector('input[name="package"]:checked');
       if (!selectedRadio || selectedRadio.disabled) {
-        alert("Pilih durasi paket yang tersedia terlebih dahulu!");
+        alert("Pilih durasi paket terlebih dahulu!");
         return;
       }
 
       const selectedPkg = selectedRadio.value;
       const selectedHarga = Number(selectedRadio.getAttribute('data-price'));
 
-      if (confirm(`Beli Phantom (${selectedPkg}) seharga Rp ${selectedHarga.toLocaleString('id-ID')}?`)) {
+      if (confirm(`Beli ${selectedPkg} seharga Rp ${selectedHarga.toLocaleString('id-ID')}?`)) {
         executePurchase(selectedPkg, selectedHarga);
       }
     }
@@ -601,7 +584,7 @@
       orderCard.className = "bg-cardBg border border-borderBg rounded-xl p-3 space-y-2";
       orderCard.innerHTML = `
         <div class="flex justify-between items-center">
-          <p class="text-xs font-bold text-white">Phantom - ${packageName}</p>
+          <p class="text-xs font-bold text-white">${packageName}</p>
           <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded">SUCCESS</span>
         </div>
         ${tanggalStr ? `<p class="text-[10px] text-slate-400">${tanggalStr}</p>` : ''}
