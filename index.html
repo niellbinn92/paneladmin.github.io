@@ -97,33 +97,49 @@
         <i class="fa-solid fa-key text-accentGold text-2xl"></i>
         <div>
           <h2 class="font-bold text-sm text-white uppercase tracking-wide">BELI KEY & LISENSI</h2>
-          <p class="text-xs text-slate-400">Pilih produk mod di bawah ini</p>
+          <p class="text-xs text-slate-400">Pilih game untuk melihat produk</p>
         </div>
       </div>
 
+      <!-- LANGKAH 1: PILIH GAME -->
       <div>
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Pilih Produk</p>
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Pilih Game</p>
+        <div class="grid grid-cols-1 gap-2">
+          <button onclick="selectGame()" id="cardGameFF" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between transition text-left">
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-fire text-amber-500 text-lg"></i>
+              <div>
+                <p class="text-xs font-bold text-white">FREE FIRE</p>
+                <p class="text-[10px] text-slate-400">Tersedia Mod & Cheat Menu</p>
+              </div>
+            </div>
+            <i id="checkGameIcon" class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- LANGKAH 2: PILIH PRODUK (MUNCUL SETELAH KLIK FREE FIRE) -->
+      <div id="sectionProduct" class="hidden space-y-3 animate-fadeIn">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Pilih Produk Mod</p>
         <div class="grid grid-cols-1 gap-2">
           
-          <!-- PRODUK 1: PHANTOM MOD -->
           <button onclick="selectProductType('Phantom')" id="cardProdPhantom" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between transition text-left">
             <div class="flex items-center space-x-3">
               <i class="fa-solid fa-ghost text-amber-500 text-lg"></i>
               <div>
-                <p class="text-xs font-bold text-white">PHANTOM MOD (FREE FIRE)</p>
-                <p class="text-[10px] text-slate-400">Tersedia Durasi 6 Jam - 30 Hari</p>
+                <p class="text-xs font-bold text-white">PHANTOM MOD</p>
+                <p class="text-[10px] text-slate-400">Durasi 6 Jam - 30 Hari</p>
               </div>
             </div>
             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
           </button>
 
-          <!-- PRODUK 2: DRIP WIRE -->
           <button onclick="selectProductType('DripWire')" id="cardProdDripWire" class="bg-cardBg border border-borderBg hover:border-amber-500 rounded-xl p-3.5 flex items-center justify-between transition text-left">
             <div class="flex items-center space-x-3">
               <i class="fa-solid fa-bolt text-sky-400 text-lg"></i>
               <div>
-                <p class="text-xs font-bold text-white">DRIP WIRE (FREE FIRE)</p>
-                <p class="text-[10px] text-slate-400">Tersedia Durasi 6 Jam - 7 Hari</p>
+                <p class="text-xs font-bold text-white">DRIP WIRE</p>
+                <p class="text-[10px] text-slate-400">Durasi 6 Jam - 7 Hari</p>
               </div>
             </div>
             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
@@ -132,55 +148,55 @@
         </div>
       </div>
 
-      <!-- SECTION DURASI UNTUK PHANTOM -->
+      <!-- SECTION DURASI PHANTOM -->
       <div id="sectionPhantomDuration" class="hidden space-y-3 animate-fadeIn">
-        <p class="text-xs font-bold text-amber-400 uppercase tracking-wider">Pilih Durasi - Phantom Mod</p>
+        <p class="text-xs font-bold text-amber-400 uppercase tracking-wider">3. Pilih Durasi - Phantom Mod</p>
         <div class="space-y-2">
           
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-Phantom-6-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 6 Jam" data-price="7500" class="accent-amber-500" checked>
-              <div><p class="text-xs font-bold text-white">6 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">6 JAM</p><p id="info-Phantom-6-Jam" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 7.500</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-Phantom-12-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 12 Jam" data-price="9500" class="accent-amber-500">
-              <div><p class="text-xs font-bold text-white">12 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">12 JAM</p><p id="info-Phantom-12-Jam" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 9.500</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-Phantom-1-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 1 Day" data-price="12000" class="accent-amber-500">
-              <div><p class="text-xs font-bold text-white">1 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">1 DAY</p><p id="info-Phantom-1-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 12.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-Phantom-3-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 3 Day" data-price="20000" class="accent-amber-500">
-              <div><p class="text-xs font-bold text-white">3 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">3 DAY</p><p id="info-Phantom-3-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 20.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-Phantom-7-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 7 Day" data-price="35000" class="accent-amber-500">
-              <div><p class="text-xs font-bold text-white">7 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">7 DAY</p><p id="info-Phantom-7-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 35.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
+          <label id="label-Phantom-30-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="Phantom - 30 Day" data-price="60000" class="accent-amber-500">
-              <div><p class="text-xs font-bold text-white">30 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">30 DAY</p><p id="info-Phantom-30-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 60.000</span>
           </label>
@@ -192,39 +208,39 @@
         </button>
       </div>
 
-      <!-- SECTION DURASI UNTUK DRIP WIRE (HARGA BARU) -->
+      <!-- SECTION DURASI DRIP WIRE -->
       <div id="sectionDripWireDuration" class="hidden space-y-3 animate-fadeIn">
-        <p class="text-xs font-bold text-sky-400 uppercase tracking-wider">Pilih Durasi - Drip Wire</p>
+        <p class="text-xs font-bold text-sky-400 uppercase tracking-wider">3. Pilih Durasi - Drip Wire</p>
         <div class="space-y-2">
           
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+          <label id="label-DripWire-6-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="DripWire - 6 Jam" data-price="3500" class="accent-sky-500">
-              <div><p class="text-xs font-bold text-white">6 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">6 JAM</p><p id="info-DripWire-6-Jam" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 3.500</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+          <label id="label-DripWire-12-Jam" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="DripWire - 12 Jam" data-price="8000" class="accent-sky-500">
-              <div><p class="text-xs font-bold text-white">12 JAM</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">12 JAM</p><p id="info-DripWire-12-Jam" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 8.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+          <label id="label-DripWire-1-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="DripWire - 1 Day" data-price="12000" class="accent-sky-500">
-              <div><p class="text-xs font-bold text-white">1 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">1 DAY</p><p id="info-DripWire-1-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 12.000</span>
           </label>
 
-          <label class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
+          <label id="label-DripWire-7-Day" class="bg-cardBg border border-borderBg rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-sky-500/50 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="package" value="DripWire - 7 Day" data-price="30000" class="accent-sky-500">
-              <div><p class="text-xs font-bold text-white">7 DAY</p><p class="text-[10px] text-emerald-400">Ready</p></div>
+              <div><p class="text-xs font-bold text-white">7 DAY</p><p id="info-DripWire-7-Day" class="text-[10px] text-slate-400">Memuat stok...</p></div>
             </div>
             <span class="text-xs font-extrabold text-accentGold">Rp 30.000</span>
           </label>
@@ -283,34 +299,7 @@
       </div>
     </div>
 
-    <!-- TAB 4: RANKING -->
-    <div id="tabLeaderboard" class="tab-content hidden space-y-4">
-      <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
-        <div class="flex items-center space-x-2">
-          <i class="fa-solid fa-coins text-accentGold text-lg"></i>
-          <div>
-            <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">LEADERBOARD</h3>
-            <p class="text-[10px] text-slate-400">Top depositor / pembeli terbanyak</p>
-          </div>
-        </div>
-
-        <div class="space-y-2 pt-1">
-          <div class="bg-darkBg border border-borderBg rounded-xl p-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-7 h-7 rounded-full bg-amber-500 text-black font-extrabold flex items-center justify-center text-xs">1</div>
-              <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-xs border border-amber-500/30">NS</div>
-              <div>
-                <p class="text-xs font-bold text-white">Niellstorez</p>
-                <p class="text-[10px] text-slate-400">@Niellstorez</p>
-              </div>
-            </div>
-            <span class="text-xs font-extrabold text-accentGold">Rp 1.200.000</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 5: PROFIL -->
+    <!-- TAB 4: PROFIL (RANKING DIHAPUS) -->
     <div id="tabProfile" class="tab-content hidden space-y-4">
       <div class="bg-cardBg border border-borderBg rounded-2xl p-4 space-y-3">
         <h3 class="text-xs font-bold text-slate-400 uppercase">Account Overview</h3>
@@ -339,7 +328,7 @@
 
   </div>
 
-  <!-- BOTTOM NAVIGATION BAR -->
+  <!-- BOTTOM NAVIGATION BAR (RANKING DIHAPUS, TERSISA 4 MENU) -->
   <div class="fixed bottom-0 left-0 right-0 bg-cardBg border-t border-borderBg max-w-md mx-auto flex justify-around py-2.5 z-40 hidden" id="bottomNav">
     <button onclick="switchTab('tabBeliKey', this)" class="nav-btn flex flex-col items-center text-amber-500">
       <i class="fa-solid fa-key text-base"></i>
@@ -352,10 +341,6 @@
     <button onclick="switchTab('tabTopUp', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-wallet text-base"></i>
       <span class="text-[9px] font-bold mt-1">TOP UP</span>
-    </button>
-    <button onclick="switchTab('tabLeaderboard', this)" class="nav-btn flex flex-col items-center text-slate-400">
-      <i class="fa-solid fa-trophy text-base"></i>
-      <span class="text-[9px] font-bold mt-1">RANKING</span>
     </button>
     <button onclick="switchTab('tabProfile', this)" class="nav-btn flex flex-col items-center text-slate-400">
       <i class="fa-solid fa-user text-base"></i>
@@ -449,6 +434,34 @@
         if (result.status === "success") {
           fetchedSaldo = "Rp " + Number(result.saldo).toLocaleString('id-ID');
 
+          // Pengecekan Stok Akurat berdasarkan Sheet2 (Jika belum didaftar/habis, otomatis "Stok Habis")
+          if (result.stok) {
+            const stokMap = result.stok;
+            for (let pkgKey in stokMap) {
+              let count = stokMap[pkgKey];
+              let safeKeyId = pkgKey.replace(/\s+/g, '-');
+              let infoElem = document.getElementById("info-" + safeKeyId);
+              let labelElem = document.getElementById("label-" + safeKeyId);
+              let radioElem = labelElem ? labelElem.querySelector('input[type="radio"]') : null;
+
+              if (infoElem && labelElem && radioElem) {
+                if (count > 0) {
+                  infoElem.innerText = `Ready (${count})`;
+                  infoElem.className = "text-[10px] text-emerald-400 font-semibold";
+                  radioElem.disabled = false;
+                  labelElem.style.opacity = "1";
+                  labelElem.style.pointerEvents = "auto";
+                } else {
+                  infoElem.innerText = "Stok Habis";
+                  infoElem.className = "text-[10px] text-red-400 font-semibold";
+                  radioElem.disabled = true;
+                  labelElem.style.opacity = "0.4";
+                  labelElem.style.pointerEvents = "none";
+                }
+              }
+            }
+          }
+
           if (result.orders && result.orders.length > 0) {
             const container = document.getElementById('orderListContainer');
             container.innerHTML = '';
@@ -494,6 +507,15 @@
       });
       btnElem.classList.remove('text-slate-400');
       btnElem.classList.add('text-amber-500');
+    }
+
+    // Alur Klasik: Klik Free Fire dulu -> Muncul Produk
+    function selectGame() {
+      const cardGame = document.getElementById('cardGameFF');
+      cardGame.classList.toggle('border-amber-500');
+      document.getElementById('sectionProduct').classList.toggle('hidden');
+      document.getElementById('sectionPhantomDuration').classList.add('hidden');
+      document.getElementById('sectionDripWireDuration').classList.add('hidden');
     }
 
     function selectProductType(type) {
