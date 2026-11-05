@@ -9,7 +9,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: #121318; color: #ffffff; padding-bottom: 70px; }
     
-    /* Header Profil */
     .header-profile { background-color: #1a1c23; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2d37; }
     .profile-info h3 { font-size: 0.9rem; color: #e57c00; font-weight: 700; }
     .profile-info p { font-size: 0.75rem; color: #9aa0a6; margin-top: 2px; }
@@ -17,28 +16,26 @@
 
     .container { padding: 14px; max-width: 480px; margin: 0 auto; }
 
-    /* Banner Judul */
     .banner-title { background: linear-gradient(135deg, #1a1c23, #252833); border: 1px solid #2a2d37; border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
     .banner-title svg { width: 22px; height: 22px; fill: #e57c00; }
     .banner-title div h4 { font-size: 0.85rem; font-weight: 800; color: #fff; text-transform: uppercase; }
     .banner-title div p { font-size: 0.7rem; color: #9aa0a6; }
 
-    /* Section Box */
     .section-card { background-color: #1a1c23; border: 1px solid #2a2d37; border-radius: 12px; padding: 14px; margin-bottom: 14px; }
     .section-title { font-size: 0.75rem; font-weight: 700; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
 
-    /* Grid Pilihan Game & Durasi */
     .grid-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
     .option-btn { background-color: #121318; border: 1px solid #2a2d37; border-radius: 10px; padding: 10px; text-align: left; cursor: pointer; color: #fff; transition: all 0.2s; }
     .option-btn.active { border-color: #e57c00; background-color: rgba(229, 124, 0, 0.08); }
     .option-btn .name { font-size: 0.8rem; font-weight: 700; }
     .option-btn .price { font-size: 0.75rem; color: #34a853; font-weight: 600; margin-top: 4px; }
 
-    /* Quantity Control */
     .qty-box { display: flex; align-items: center; justify-content: space-between; background: #121318; border: 1px solid #2a2d37; border-radius: 10px; padding: 8px 12px; margin-bottom: 12px; }
     .qty-controls { display: flex; align-items: center; gap: 12px; }
     .qty-controls button { width: 28px; height: 28px; background: #252833; border: none; border-radius: 6px; color: #fff; font-weight: bold; cursor: pointer; }
     .qty-controls span { font-size: 0.9rem; font-weight: bold; }
+    
+    .total-price-display { font-size: 0.85rem; font-weight: 800; color: #34a853; text-align: right; }
 
     .input-field { width: 100%; padding: 11px 14px; background-color: #121318; border: 1px solid #2a2d37; border-radius: 10px; color: #fff; font-size: 0.85rem; outline: none; margin-bottom: 10px; }
     .input-field:focus { border-color: #e57c00; }
@@ -49,7 +46,13 @@
     .status-msg { margin-top: 10px; font-size: 0.78rem; text-align: center; color: #ea4335; min-height: 16px; word-break: break-all; }
     .status-msg.success { color: #34a853; }
 
-    /* Tab Menu Bawah (Mirip Video) */
+    /* Kotak Hasil Key dengan Tombol Salin */
+    #resultBox { display: none; margin-top: 12px; background: #121318; border: 1px solid #34a853; border-radius: 10px; padding: 10px; }
+    .key-row { display: flex; justify-content: space-between; align-items: center; background: #1a1c23; padding: 8px 10px; border-radius: 6px; margin-top: 6px; }
+    .key-text { font-family: monospace; font-size: 0.8rem; color: #34a853; font-weight: bold; word-break: break-all; }
+    .btn-copy { background: #34a853; border: none; color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
+    .btn-copy:active { opacity: 0.8; }
+
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background-color: #16181f; border-top: 1px solid #2a2d37; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
     .nav-item { background: none; border: none; color: #9aa0a6; font-size: 0.65rem; font-weight: 700; text-align: center; cursor: pointer; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 3px; }
     .nav-item.active { color: #e57c00; }
@@ -58,14 +61,13 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* Riwayat list */
-    .history-item { background: #121318; padding: 10px; border-radius: 8px; margin-bottom: 6px; font-size: 0.75rem; display: flex; justify-content: space-between; color: #9aa0a6; }
-    .history-item span { color: #fff; font-weight: 600; }
+    .history-item { background: #121318; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.75rem; border-left: 3px solid #e57c00; }
+    .history-top { display: flex; justify-content: space-between; color: #fff; font-weight: 600; margin-bottom: 4px; }
+    .history-bottom { display: flex; justify-content: space-between; color: #9aa0a6; font-size: 0.7rem; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER PROFIL -->
   <div class="header-profile">
     <div class="profile-info">
       <h3 id="profileName">Memuat...</h3>
@@ -76,7 +78,7 @@
 
   <div class="container">
 
-    <!-- TAB 1: MUA KEY (BELI PRODUK) -->
+    <!-- TAB 1: BELI KEY -->
     <div id="tab-muakey" class="tab-content active">
       <div class="banner-title">
         <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
@@ -119,18 +121,27 @@
           </div>
         </div>
 
-        <div class="section-title">Kuantitas</div>
+        <div class="section-title">Kuantitas & Total Harga</div>
         <div class="qty-box">
-          <span style="font-size: 0.8rem; color: #9aa0a6;">Jumlah Pembelian</span>
           <div class="qty-controls">
             <button onclick="changeQty(-1)">-</button>
             <span id="qtyVal">1</span>
             <button onclick="changeQty(1)">+</button>
           </div>
+          <div class="total-price-display" id="totalPriceText">Rp 4.000</div>
         </div>
 
         <button class="btn-main" onclick="buyProduct()">Beli Sekarang</button>
         <div class="status-msg" id="buyMsg"></div>
+
+        <!-- TEMPAT KOTAK SALIN KEY DI HALAMAN UTAMA -->
+        <div id="resultBox">
+          <div style="font-size: 0.75rem; color: #34a853; font-weight: bold; margin-bottom: 4px;">Pembelian Berhasil! Salin Key Kamu:</div>
+          <div class="key-row">
+            <span class="key-text" id="latestKeyText">-</span>
+            <button class="btn-copy" onclick="copyKey()">Salin Key</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -152,27 +163,26 @@
       </div>
     </div>
 
-    <!-- TAB 3: RIWAYAT / AKUN -->
+    <!-- TAB 3: AKUN & RIWAYAT -->
     <div id="tab-akun" class="tab-content">
       <div class="banner-title">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
         <div>
           <h4>Informasi Akun Telegram</h4>
-          <p>Riwayat transaksi kamu tercatat otomatis</p>
+          <p>Riwayat transaksi & Key tersimpan otomatis</p>
         </div>
       </div>
 
       <div class="section-card">
-        <div class="section-title">Riwayat Transaksi Terakhir</div>
+        <div class="section-title">Riwayat Transaksi & Key</div>
         <div id="historyList">
-          <p style="font-size: 0.75rem; color: #9aa0a6;">Belum ada transaksi.</p>
+          <p style="font-size: 0.75rem; color: #9aa0a6;">Memuat riwayat...</p>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- NAVIGATION BAR BAWAH -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="switchTab('muakey', this)">
       <svg viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
@@ -205,6 +215,10 @@
     let quantity = 1;
 
     window.onload = function() {
+      loadUserData();
+    };
+
+    function loadUserData() {
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'cors',
@@ -219,16 +233,41 @@
           document.getElementById('profileId').innerText = "ID: " + data.user.teleId + (data.user.username !== "-" ? " (@" + data.user.username + ")" : "");
           document.getElementById('profileSaldo').innerText = 'Rp ' + Number(data.user.saldo).toLocaleString('id-ID');
 
-          if (data.history && data.history.length > 0) {
-            let html = '';
-            data.history.forEach(h => {
-              html += `<div class="history-item"><span>${h.info}</span> <span>ID: ${h.id}</span></div>`;
-            });
-            document.getElementById('historyList').innerHTML = html;
-          }
+          renderHistory(data.history);
         }
       });
-    };
+      updateTotalPrice();
+    }
+
+    function renderHistory(history) {
+      const historyList = document.getElementById('historyList');
+      if (!history || history.length === 0) {
+        historyList.innerHTML = '<p style="font-size: 0.75rem; color: #9aa0a6;">Belum ada riwayat transaksi.</p>';
+        return;
+      }
+
+      let html = '';
+      // Urutkan dari yang terbaru (dibalik)
+      history.reverse().forEach(h => {
+        html += `
+          <div class="history-item">
+            <div class="history-top">
+              <span>${h.produk}</span>
+              <span style="color: #34a853;">Rp ${Number(h.harga).toLocaleString('id-ID')}</span>
+            </div>
+            <div style="font-family: monospace; color: #e57c00; font-size: 0.75rem; margin: 4px 0; background: #1a1c23; padding: 4px 6px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+              <span>Key: ${h.key}</span>
+              <button onclick="navigator.clipboard.writeText('${h.key}'); alert('Key berhasil disalin!');" style="background:#34a853; border:none; color:#fff; padding:2px 6px; border-radius:4px; font-size:0.65rem; cursor:pointer;">Salin</button>
+            </div>
+            <div class="history-bottom">
+              <span>ID: ${h.id}</span>
+              <span>${h.waktu ? new Date(h.waktu).toLocaleString('id-ID', {dateStyle:'short', timeStyle:'short'}) : ''}</span>
+            </div>
+          </div>
+        `;
+      });
+      historyList.innerHTML = html;
+    }
 
     function switchTab(tabId, el) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -241,21 +280,30 @@
       document.querySelectorAll('.option-btn').forEach(el => el.classList.remove('active'));
       element.classList.add('active');
       selectedProduct = { name: name, price: price };
+      updateTotalPrice();
     }
 
     function changeQty(val) {
       quantity += val;
       if (quantity < 1) quantity = 1;
       document.getElementById('qtyVal').innerText = quantity;
+      updateTotalPrice();
+    }
+
+    function updateTotalPrice() {
+      const total = selectedProduct.price * quantity;
+      document.getElementById('totalPriceText').innerText = 'Rp ' + total.toLocaleString('id-ID');
     }
 
     function buyProduct() {
       const totalHarga = selectedProduct.price * quantity;
       const msg = document.getElementById('buyMsg');
+      const resultBox = document.getElementById('resultBox');
 
       if (currentUser.saldo < totalHarga) {
         msg.className = 'status-msg';
         msg.innerText = 'Saldo tidak cukup!';
+        resultBox.style.display = 'none';
         return;
       }
 
@@ -276,13 +324,29 @@
       .then(data => {
         if (data.status === 'success') {
           msg.className = 'status-msg success';
-          msg.innerText = `Berhasil! Key: ${data.serialKey}`;
+          msg.innerText = 'Pembelian Berhasil!';
+          
           currentUser.saldo = data.sisaSaldo;
           document.getElementById('profileSaldo').innerText = 'Rp ' + Number(data.sisaSaldo).toLocaleString('id-ID');
+
+          // Tampilkan Kotak Hasil Key di Halaman Utama
+          document.getElementById('latestKeyText').innerText = data.serialKey;
+          resultBox.style.display = 'block';
+
+          // Refresh data riwayat di tab akun secara realtime
+          loadUserData();
         } else {
           msg.className = 'status-msg';
           msg.innerText = data.message;
+          resultBox.style.display = 'none';
         }
+      });
+    }
+
+    function copyKey() {
+      const keyText = document.getElementById('latestKeyText').innerText;
+      navigator.clipboard.writeText(keyText).then(() => {
+        alert('Serial Key berhasil disalin!');
       });
     }
 
