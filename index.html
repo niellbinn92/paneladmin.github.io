@@ -3,337 +3,221 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>NIELLSTORE - Login Reseller</title>
+  <title>NIELLSTORE Mini App</title>
+  <!-- SDK TELEGRAM WEB APP -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #121318; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
+    .container { width: 100%; max-width: 380px; }
+    .card { background-color: #1a1c23; border: 1px solid #2a2d37; border-radius: 16px; padding: 20px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); }
+    
+    .profile-box { background-color: #252833; padding: 14px; border-radius: 12px; margin-bottom: 16px; border-left: 4px solid #e57c00; }
+    .profile-box h3 { font-size: 1rem; color: #e57c00; }
+    .profile-box p { font-size: 0.8rem; color: #9aa0a6; margin-top: 2px; }
+    
+    .menu-card { background-color: #252833; border: 1px solid #2a2d37; border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+    .menu-card h4 { font-size: 0.85rem; color: #e57c00; margin-bottom: 10px; }
+    
+    .form-group { text-align: left; margin-bottom: 12px; }
+    label { display: block; font-size: 0.68rem; font-weight: 700; color: #9aa0a6; margin-bottom: 6px; text-transform: uppercase; }
+    input, select { width: 100%; padding: 12px; background-color: #121318; border: 1px solid #2a2d37; border-radius: 8px; color: #ffffff; font-size: 0.85rem; outline: none; }
+    input:focus, select:focus { border-color: #e57c00; }
 
-    body {
-      background-color: #121318;
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
+    .btn-submit { width: 100%; padding: 12px; background-color: #e57c00; border: none; border-radius: 8px; color: #121318; font-size: 0.85rem; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-topup { background-color: #34a853; color: #ffffff; }
 
-    .container {
-      width: 100%;
-      max-width: 380px;
-    }
-
-    .card {
-      background-color: #1a1c23;
-      border: 1px solid #2a2d37;
-      border-radius: 16px;
-      padding: 32px 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      text-align: center;
-    }
-
-    .icon-box {
-      width: 56px;
-      height: 56px;
-      background-color: #e57c00;
-      border-radius: 14px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 20px auto;
-      box-shadow: 0 4px 12px rgba(229, 124, 0, 0.3);
-    }
-
-    .icon-box svg {
-      width: 28px;
-      height: 28px;
-      fill: #121318;
-    }
-
-    h2 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .subtitle {
-      font-size: 0.85rem;
-      color: #9aa0a6;
-      line-height: 1.4;
-      margin-bottom: 24px;
-    }
-
-    .form-group {
-      text-align: left;
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #9aa0a6;
-      letter-spacing: 0.8px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    input {
-      width: 100%;
-      padding: 14px 16px;
-      background-color: #121318;
-      border: 1px solid #2a2d37;
-      border-radius: 10px;
-      color: #ffffff;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    input:focus {
-      border-color: #e57c00;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 14px;
-      background-color: #e57c00;
-      border: none;
-      border-radius: 10px;
-      color: #121318;
-      font-size: 0.9rem;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: background-color 0.2s ease, transform 0.1s ease;
-    }
-
-    .btn-submit:active {
-      transform: scale(0.98);
-    }
-
-    .btn-submit:disabled {
-      background-color: #555555;
-      cursor: not-allowed;
-    }
-
-    .status-msg {
-      margin-top: 18px;
-      font-size: 0.85rem;
-      color: #ea4335;
-      min-height: 20px;
-    }
-
-    .status-msg.success {
-      color: #34a853;
-    }
-
-    .loader-container {
-      display: none;
-      margin-top: 15px;
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background-color: #121318;
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .progress-bar-fill {
-      width: 0%;
-      height: 100%;
-      background-color: #e57c00;
-      transition: width 0.05s linear;
-    }
-
-    .progress-text {
-      font-size: 0.8rem;
-      color: #9aa0a6;
-      font-weight: 600;
-    }
-
-    #dashboard-view {
-      display: none;
-      text-align: left;
-    }
-
-    .dashboard-header {
-      background-color: #252833;
-      padding: 16px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
-    .dashboard-header p {
-      font-size: 0.85rem;
-      color: #9aa0a6;
-      margin-top: 4px;
-    }
-
-    .btn-logout {
-      background-color: #333644;
-      color: #fff;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-    }
+    .status-msg { margin-top: 10px; font-size: 0.78rem; color: #ea4335; text-align: center; min-height: 16px; word-break: break-all; }
+    .status-msg.success { color: #34a853; }
+    
+    /* Loading Bar Incremental */
+    .loader { display: none; margin-top: 10px; text-align: center; font-size: 0.8rem; color: #9aa0a6; }
+    .bar-bg { width: 100%; height: 6px; background: #121318; border-radius: 3px; overflow: hidden; margin-top: 6px; }
+    .bar-fill { width: 0%; height: 100%; background: #e57c00; transition: width 0.05s linear; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- FORM LOGIN -->
-    <div class="card" id="login-card">
-      <div class="icon-box">
-        <svg viewBox="0 0 24 24">
-          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-        </svg>
+    <div class="card">
+      <h2 style="text-align: center; font-size: 1.1rem; margin-bottom: 14px;">NIELLSTORE PORTAL</h2>
+
+      <!-- BOX PROFIL TELEGRAM -->
+      <div class="profile-box">
+        <h3 id="userNama">Memuat Profil...</h3>
+        <p id="userTeleId">ID: -</p>
+        <p style="margin-top: 6px; font-weight: bold; color: #fff;">Saldo: <span id="userSaldo" style="color: #34a853;">Rp 0</span></p>
       </div>
 
-      <h2>LOGIN RESELLER</h2>
-      <p class="subtitle">Masukkan Email dan Password yang diberikan oleh Admin.</p>
+      <!-- ANIMASI LOADING -->
+      <div class="loader" id="loader">
+        <span>Menghubungkan ke Server... <b id="percent">0%</b></span>
+        <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
+      </div>
 
-      <form id="loginForm">
-        <div class="form-group">
-          <label>EMAIL RESELLER</label>
-          <input type="email" id="email" placeholder="nama@gmail.com" required autocomplete="off" />
+      <!-- KONTEN UTAMA -->
+      <div id="mainContent" style="display: none;">
+        <!-- PRODUK FREE FIRE - PHANTOM -->
+        <div class="menu-card">
+          <h4>🔥 Free Fire - Phantom</h4>
+          <div class="form-group">
+            <label>Pilih Durasi Key</label>
+            <select id="durasiSelect">
+              <option value="Phantom 3 Jam|4000">Phantom - 3 Jam (Rp 4.000)</option>
+              <option value="Phantom 6 Jam|7500">Phantom - 6 Jam (Rp 7.500)</option>
+              <option value="Phantom 12 Jam|9500">Phantom - 12 Jam (Rp 9.500)</option>
+              <option value="Phantom 1 Day|11000">Phantom - 1 Day (Rp 11.000)</option>
+              <option value="Phantom 3 Day|20000">Phantom - 3 Day (Rp 20.000)</option>
+              <option value="Phantom 7 Day|35000">Phantom - 7 Day (Rp 35.000)</option>
+              <option value="Phantom 30 Day|80000">Phantom - 30 Day (Rp 80.000)</option>
+            </select>
+          </div>
+          <button class="btn-submit" onclick="beliProduk()">Beli Sekarang</button>
+          <div class="status-msg" id="buyMsg"></div>
         </div>
 
-        <div class="form-group">
-          <label>PASSWORD / PIN</label>
-          <input type="password" id="password" placeholder="••••••••" required />
-        </div>
-
-        <button type="submit" class="btn-submit" id="btnSubmit">MASUK PORTAL</button>
-      </form>
-
-      <!-- Loading Animasi 1-100% -->
-      <div class="loader-container" id="loaderContainer">
-        <span class="progress-text">Memvalidasi Data... <span id="percentText">0%</span></span>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
+        <!-- TOP UP SALDO MANUAL -->
+        <div class="menu-card">
+          <h4>💰 Top Up Saldo Manual</h4>
+          <div class="form-group">
+            <label>Jumlah Nominal (Min. Rp 15.000)</label>
+            <input type="number" id="topupAmount" placeholder="15000" min="15000" />
+          </div>
+          <button class="btn-submit btn-topup" onclick="requestTopUp()">Request Top Up</button>
+          <div class="status-msg" id="topupMsg"></div>
         </div>
       </div>
 
-      <div class="status-msg" id="statusMsg"></div>
-    </div>
-
-    <!-- DASHBOARD VIEW -->
-    <div class="card" id="dashboard-view">
-      <h2>SELAMAT DATANG</h2>
-      <div class="dashboard-header">
-        <h3 id="resellerName" style="color: #e57c00;">-</h3>
-        <p id="resellerEmail">-</p>
-        <p style="margin-top: 10px; color: #fff; font-weight: bold;">Saldo: <span id="resellerSaldo" style="color: #34a853;">-</span></p>
-      </div>
-      <button class="btn-logout" onclick="logout()">KELUAR PORTAL</button>
     </div>
   </div>
 
   <script>
-    // URL Web App Google Sheets Kamu
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6JxGXI6ZFsuHt-QKVJ_YUbVZhgNGjFxUdY4eCS1hoImK7z4qxLUqJTkSy5qNQfJ3Byw/exec";
+    
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    if (tg) tg.expand();
 
-    const loginForm = document.getElementById('loginForm');
-    const btnSubmit = document.getElementById('btnSubmit');
-    const loaderContainer = document.getElementById('loaderContainer');
-    const progressBar = document.getElementById('progressBar');
-    const percentText = document.getElementById('percentText');
-    const statusMsg = document.getElementById('statusMsg');
+    let userData = {
+      teleId: tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "12345678",
+      nama: tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? (tg.initDataUnsafe.user.first_name + " " + (tg.initDataUnsafe.user.last_name || "")).trim() : "Reseller Demo",
+      username: tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.username : "-",
+      saldo: 0
+    };
 
-    const loginCard = document.getElementById('login-card');
-    const dashboardView = document.getElementById('dashboard-view');
+    // Auto Init saat buka Web App
+    window.onload = function() {
+      runProgress(100, () => {
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'init_user', teleId: userData.teleId, nama: userData.nama, username: userData.username })
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('loader').style.display = 'none';
+          document.getElementById('mainContent').style.display = 'block';
 
-    loginForm.addEventListener('submit', function(e) {
-      e.preventDefault();
+          if (data.status === 'success') {
+            userData.saldo = data.user.saldo;
+            document.getElementById('userNama').innerText = data.user.nama;
+            document.getElementById('userTeleId').innerText = "ID: " + data.user.teleId + (data.user.username ? " (@" + data.user.username + ")" : "");
+            updateSaldoUI(data.user.saldo);
+          }
+        })
+        .catch(() => {
+          document.getElementById('loader').style.display = 'none';
+          document.getElementById('userNama').innerText = "Gagal terhubung server";
+        });
+      });
+    };
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+    function runProgress(target, callback) {
+      const loader = document.getElementById('loader');
+      const bar = document.getElementById('bar');
+      const percent = document.getElementById('percent');
+      loader.style.display = 'block';
 
-      statusMsg.className = 'status-msg';
-      statusMsg.innerText = '';
-      btnSubmit.disabled = true;
-      loaderContainer.style.display = 'block';
-
-      let progress = 0;
-      let targetProgress = 90;
-      
+      let p = 0;
       const interval = setInterval(() => {
-        if (progress < targetProgress) {
-          progress += Math.floor(Math.random() * 5) + 1;
-          if (progress > targetProgress) progress = targetProgress;
-          updateProgress(progress);
+        p += Math.floor(Math.random() * 8) + 2;
+        if (p >= target) {
+          p = target;
+          clearInterval(interval);
+          if (callback) callback();
         }
-      }, 50);
+        bar.style.width = p + '%';
+        percent.innerText = p + '%';
+      }, 40);
+    }
+
+    function updateSaldoUI(saldo) {
+      userData.saldo = saldo;
+      document.getElementById('userSaldo').innerText = 'Rp ' + Number(saldo).toLocaleString('id-ID');
+    }
+
+    function beliProduk() {
+      const select = document.getElementById('durasiSelect').value.split('|');
+      const durasi = select[0];
+      const harga = Number(select[1]);
+      const msg = document.getElementById('buyMsg');
+
+      if (userData.saldo < harga) {
+        msg.className = 'status-msg';
+        msg.innerText = 'Saldo tidak cukup!';
+        return;
+      }
+
+      msg.innerText = 'Memproses...';
 
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ email: email, password: password })
+        body: JSON.stringify({ action: 'buy', teleId: userData.teleId, durasi: durasi, harga: harga })
       })
       .then(res => res.json())
       .then(data => {
-        targetProgress = 100;
-        clearInterval(interval);
-        updateProgress(100);
-
-        setTimeout(() => {
-          loaderContainer.style.display = 'none';
-          btnSubmit.disabled = false;
-
-          if (data.status === 'success') {
-            statusMsg.className = 'status-msg success';
-            statusMsg.innerText = 'Login Berhasil!';
-            
-            setTimeout(() => {
-              loginCard.style.display = 'none';
-              dashboardView.style.display = 'block';
-              document.getElementById('resellerName').innerText = data.user.nama || 'Reseller';
-              document.getElementById('resellerEmail').innerText = data.user.email;
-              document.getElementById('resellerSaldo').innerText = data.user.saldo ? 'Rp ' + Number(data.user.saldo).toLocaleString('id-ID') : 'Rp 0';
-            }, 500);
-
-          } else {
-            statusMsg.innerText = data.message || 'Email atau Password salah!';
-          }
-        }, 300);
-      })
-      .catch(err => {
-        clearInterval(interval);
-        loaderContainer.style.display = 'none';
-        btnSubmit.disabled = false;
-        statusMsg.innerText = 'Error jaringan. Periksa koneksi kamu.';
+        if (data.status === 'success') {
+          msg.className = 'status-msg success';
+          msg.innerText = `Sukses! Key: ${data.serialKey}`;
+          updateSaldoUI(data.sisaSaldo);
+        } else {
+          msg.className = 'status-msg';
+          msg.innerText = data.message;
+        }
       });
-    });
-
-    function updateProgress(val) {
-      progressBar.style.width = val + '%';
-      percentText.innerText = val + '%';
     }
 
-    function logout() {
-      dashboardView.style.display = 'none';
-      loginCard.style.display = 'block';
-      document.getElementById('email').value = '';
-      document.getElementById('password').value = '';
-      statusMsg.innerText = '';
-      updateProgress(0);
+    function requestTopUp() {
+      const amount = document.getElementById('topupAmount').value;
+      const msg = document.getElementById('topupMsg');
+
+      if (!amount || amount < 15000) {
+        msg.className = 'status-msg';
+        msg.innerText = 'Minimal top up Rp 15.000!';
+        return;
+      }
+
+      msg.innerText = 'Mengirim request...';
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'topup', teleId: userData.teleId, nama: userData.nama, jumlah: amount })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          msg.className = 'status-msg success';
+          msg.innerText = `Req #${data.depositId} dibuat. Silakan transfer Rp ${Number(amount).toLocaleString('id-ID')} ke Admin.`;
+        } else {
+          msg.className = 'status-msg';
+          msg.innerText = data.message;
+        }
+      });
     }
   </script>
 </body>
