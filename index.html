@@ -16,7 +16,7 @@
 
     .container { padding: 14px; max-width: 480px; margin: 0 auto; }
 
-    .banner-title { background: linear-gradient(135deg, #1a1c23, #252833); border: 1px solid #2a2d37; border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .banner-title { background: linear-gradient(135deg, #1a1c23, #252833); border: 1px solid #2a2d37; border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .banner-title svg { width: 22px; height: 22px; fill: #e57c00; }
     .banner-title div h4 { font-size: 0.85rem; font-weight: 800; color: #fff; text-transform: uppercase; }
     .banner-title div p { font-size: 0.7rem; color: #9aa0a6; }
@@ -46,12 +46,10 @@
     .status-msg { margin-top: 10px; font-size: 0.78rem; text-align: center; color: #ea4335; min-height: 16px; word-break: break-all; }
     .status-msg.success { color: #34a853; }
 
-    /* Kotak Hasil Key dengan Tombol Salin */
     #resultBox { display: none; margin-top: 12px; background: #121318; border: 1px solid #34a853; border-radius: 10px; padding: 10px; }
     .key-row { display: flex; justify-content: space-between; align-items: center; background: #1a1c23; padding: 8px 10px; border-radius: 6px; margin-top: 6px; }
     .key-text { font-family: monospace; font-size: 0.8rem; color: #34a853; font-weight: bold; word-break: break-all; }
     .btn-copy { background: #34a853; border: none; color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
-    .btn-copy:active { opacity: 0.8; }
 
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background-color: #16181f; border-top: 1px solid #2a2d37; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
     .nav-item { background: none; border: none; color: #9aa0a6; font-size: 0.65rem; font-weight: 700; text-align: center; cursor: pointer; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 3px; }
@@ -78,71 +76,87 @@
 
   <div class="container">
 
-    <!-- TAB 1: BELI KEY -->
+    <!-- TAB 1: BELI KEY (ALUR: PILIH GAME -> PILIH PRODUK) -->
     <div id="tab-muakey" class="tab-content active">
-      <div class="banner-title">
-        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-        <div>
-          <h4>Free Fire - Phantom</h4>
-          <p>Sistem Otomatis / Manual Key Generator</p>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <div class="section-title">Pilih Durasi Produk</div>
-        <div class="grid-options" id="durationList">
-          <div class="option-btn active" onclick="selectDuration(this, 'Phantom - 3 Jam', 4000)">
-            <div class="name">3 Jam</div>
-            <div class="price">Rp 4.000</div>
-          </div>
-          <div class="option-btn" onclick="selectDuration(this, 'Phantom - 6 Jam', 7500)">
-            <div class="name">6 Jam</div>
-            <div class="price">Rp 7.500</div>
-          </div>
-          <div class="option-btn" onclick="selectDuration(this, 'Phantom - 12 Jam', 9500)">
-            <div class="name">12 Jam</div>
-            <div class="price">Rp 9.500</div>
-          </div>
-          <div class="option-btn" onclick="selectDuration(this, 'Phantom - 1 Day', 11000)">
-            <div class="name">1 Day</div>
-            <div class="price">Rp 11.000</div>
-          </div>
-          <div class="option-btn" onclick="selectDuration(this, 'Phantom - 3 Day', 20000)">
-            <div class="name">3 Day</div>
-            <div class="price">Rp 20.000</div>
-          </div>
-          <div class="option-btn" onclick="selectDuration(this, 'Phantom - 7 Day', 35000)">
-            <div class="name">7 Day</div>
-            <div class="price">Rp 35.000</div>
-          </div>
-          <div class="option-btn" onclick="selectDuration(this, 'Phantom - 30 Day', 80000)">
-            <div class="name">30 Day</div>
-            <div class="price">Rp 80.000</div>
-          </div>
-        </div>
-
-        <div class="section-title">Kuantitas & Total Harga</div>
-        <div class="qty-box">
-          <div class="qty-controls">
-            <button onclick="changeQty(-1)">-</button>
-            <span id="qtyVal">1</span>
-            <button onclick="changeQty(1)">+</button>
-          </div>
-          <div class="total-price-display" id="totalPriceText">Rp 4.000</div>
-        </div>
-
-        <button class="btn-main" onclick="buyProduct()">Beli Sekarang</button>
-        <div class="status-msg" id="buyMsg"></div>
-
-        <!-- TEMPAT KOTAK SALIN KEY DI HALAMAN UTAMA -->
-        <div id="resultBox">
-          <div style="font-size: 0.75rem; color: #34a853; font-weight: bold; margin-bottom: 4px;">Pembelian Berhasil! Salin Key Kamu:</div>
-          <div class="key-row">
-            <span class="key-text" id="latestKeyText">-</span>
-            <button class="btn-copy" onclick="copyKey()">Salin Key</button>
+      
+      <!-- TAMPILAN 1: PILIH GAME -->
+      <div id="gameSelectionView">
+        <div class="section-title" style="margin-bottom: 12px;">Pilih Kategori Game / Aplikasi</div>
+        <div class="banner-title" onclick="openProductView()">
+          <svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          <div>
+            <h4>Free Fire</h4>
+            <p>Klik untuk melihat produk & durasi key</p>
           </div>
         </div>
       </div>
+
+      <!-- TAMPILAN 2: DETAIL PRODUK PHANTOM & DURASI (MUNCUL SETELAH KLIK FREE FIRE) -->
+      <div id="productDetailView" style="display: none;">
+        <button onclick="backToGameView()" style="background: none; border: none; color: #e57c00; font-size: 0.75rem; font-weight: bold; cursor: pointer; margin-bottom: 10px;">&larr; Kembali Pilih Game</button>
+        
+        <div class="banner-title">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          <div>
+            <h4>Free Fire - Phantom</h4>
+            <p>Pilih durasi dan jumlah kuantitas key</p>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">Pilih Durasi Produk</div>
+          <div class="grid-options" id="durationList">
+            <div class="option-btn active" onclick="selectDuration(this, 'Phantom - 3 Jam', 4000)">
+              <div class="name">3 Jam</div>
+              <div class="price">Rp 4.000</div>
+            </div>
+            <div class="option-btn" onclick="selectDuration(this, 'Phantom - 6 Jam', 7500)">
+              <div class="name">6 Jam</div>
+              <div class="price">Rp 7.500</div>
+            </div>
+            <div class="option-btn" onclick="selectDuration(this, 'Phantom - 12 Jam', 9500)">
+              <div class="name">12 Jam</div>
+              <div class="price">Rp 9.500</div>
+            </div>
+            <div class="option-btn" onclick="selectDuration(this, 'Phantom - 1 Day', 11000)">
+              <div class="name">1 Day</div>
+              <div class="price">Rp 11.000</div>
+            </div>
+            <div class="option-btn" onclick="selectDuration(this, 'Phantom - 3 Day', 20000)">
+              <div class="name">3 Day</div>
+              <div class="price">Rp 20.000</div>
+            </div>
+            <div class="option-btn" onclick="selectDuration(this, 'Phantom - 7 Day', 35000)">
+              <div class="name">7 Day</div>
+              <div class="price">Rp 35.000</div>
+            </div>
+            <div class="option-btn" onclick="selectDuration(this, 'Phantom - 30 Day', 80000)">
+              <div class="name">30 Day</div>
+              <div class="price">Rp 80.000</div>
+            </div>
+          </div>
+
+          <div class="section-title">Kuantitas & Total Harga</div>
+          <div class="qty-box">
+            <div class="qty-controls">
+              <button onclick="changeQty(-1)">-</button>
+              <span id="qtyVal">1</span>
+              <button onclick="changeQty(1)">+</button>
+            </div>
+            <div class="total-price-display" id="totalPriceText">Rp 4.000</div>
+          </div>
+
+          <button class="btn-main" onclick="buyProduct()">Beli Sekarang</button>
+          <div class="status-msg" id="buyMsg"></div>
+
+          <!-- KOTAK HASIL SEMUA KEY YANG DIBELI -->
+          <div id="resultBox">
+            <div style="font-size: 0.75rem; color: #34a853; font-weight: bold; margin-bottom: 6px;">Pembelian Berhasil! Salin Key Kamu:</div>
+            <div id="keyListContainer"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- TAB 2: TOP UP MANUAL -->
@@ -163,7 +177,7 @@
       </div>
     </div>
 
-    <!-- TAB 3: AKUN & RIWAYAT -->
+    <!-- TAB 3: AKUN -->
     <div id="tab-akun" class="tab-content">
       <div class="banner-title">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
@@ -239,6 +253,18 @@
       updateTotalPrice();
     }
 
+    function openProductView() {
+      document.getElementById('gameSelectionView').style.display = 'none';
+      document.getElementById('productDetailView').style.display = 'block';
+    }
+
+    function backToGameView() {
+      document.getElementById('productDetailView').style.display = 'none';
+      document.getElementById('gameSelectionView').style.display = 'block';
+      document.getElementById('resultBox').style.display = 'none';
+      document.getElementById('buyMsg').innerText = '';
+    }
+
     function renderHistory(history) {
       const historyList = document.getElementById('historyList');
       if (!history || history.length === 0) {
@@ -247,7 +273,6 @@
       }
 
       let html = '';
-      // Urutkan dari yang terbaru (dibalik)
       history.reverse().forEach(h => {
         html += `
           <div class="history-item">
@@ -316,8 +341,9 @@
         body: JSON.stringify({ 
           action: 'buy', 
           teleId: currentUser.teleId, 
-          produk: `${selectedProduct.name} (x${quantity})`, 
-          harga: totalHarga 
+          produk: `${selectedProduct.name}`, 
+          harga: totalHarga,
+          qty: quantity
         })
       })
       .then(res => res.json())
@@ -329,24 +355,25 @@
           currentUser.saldo = data.sisaSaldo;
           document.getElementById('profileSaldo').innerText = 'Rp ' + Number(data.sisaSaldo).toLocaleString('id-ID');
 
-          // Tampilkan Kotak Hasil Key di Halaman Utama
-          document.getElementById('latestKeyText').innerText = data.serialKey;
+          // Tampilkan semua key yang dibeli
+          let keyHtml = '';
+          data.serialKeys.forEach(k => {
+            keyHtml += `
+              <div class="key-row">
+                <span class="key-text">${k}</span>
+                <button class="btn-copy" onclick="navigator.clipboard.writeText('${k}'); alert('Key berhasil disalin!');">Salin</button>
+              </div>
+            `;
+          });
+          document.getElementById('keyListContainer').innerHTML = keyHtml;
           resultBox.style.display = 'block';
 
-          // Refresh data riwayat di tab akun secara realtime
           loadUserData();
         } else {
           msg.className = 'status-msg';
           msg.innerText = data.message;
           resultBox.style.display = 'none';
         }
-      });
-    }
-
-    function copyKey() {
-      const keyText = document.getElementById('latestKeyText').innerText;
-      navigator.clipboard.writeText(keyText).then(() => {
-        alert('Serial Key berhasil disalin!');
       });
     }
 
